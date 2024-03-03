@@ -5,22 +5,43 @@
 #include <vector>
 #include <limits>
 
+/// \brief Класс ShortestPathManager инкапсулирует контекст алгоритма Дейкстры
+///        и позволяет последовательно вычленять кратчайшие пути в графе последовательно,
+///        не меняя его.
 class ShortestPathManager {
 private:
-    std::shared_ptr<IGraph> graph;
-    std::vector<int> d;
-    std::vector<bool> visited;
-    std::vector<bool> banned;
-    int startVertex;
-    int endVertex;
-    std::pair<int, std::vector<int>> length_path_of_two_vertices;
+    std::shared_ptr<IGraph> graph; ///< Указатель на объект графа.
+    std::vector<int> d; ///< Вектор кратчайших расстояний от стартовой вершины.
+    std::vector<bool> visited; ///< Вектор, отмечающий посещенные вершины.
+    std::vector<bool> banned; ///< Вектор, отмечающий запрещенные вершины.
+    int startVertex; ///< Начальная вершина для поиска кратчайшего пути.
+    int endVertex; ///< Конечная вершина для поиска кратчайшего пути.
+    std::pair<int, std::vector<int>> length_path_of_two_vertices; ///< Длина и путь кратчайшего пути между двумя вершинами.
 
+    /// \brief Приватный метод для получения кратчайшего пути между указанными вершинами.
+    ///
+    /// \param startVertex Начальная вершина пути.
+    /// \param endVertex Конечная вершина пути.
+    /// \return Пара, содержащая длину кратчайшего пути и его маршрут.
     std::pair<int, std::vector<int>> __getShortestPath(int startVertex, int endVertex);
 
 public:
+    /// \brief Конструктор класса ShortestPathManager.
+    ///
+    /// \param graph Указатель на объект графа.
+    /// \param startVertex Начальная вершина для поиска кратчайшего пути.
+    /// \param endVertex Конечная вершина для поиска кратчайшего пути.
     ShortestPathManager(std::shared_ptr<IGraph> graph, int startVertex, int endVertex);
 
+    /// \brief Метод для получения кратчайшего пути между начальной и конечной вершинами.
+    /// Сбрасывает предыдущую цепочку кратчайших путей.
+    ///
+    /// \return Пара, содержащая длину кратчайшего пути и его маршрут.
     std::pair<int, std::vector<int>> getShortestPath();
+
+    /// \brief Метод для получения следующего кратчайшего пути между начальной и конечной вершинами.
+    ///
+    /// \return Пара, содержащая длину кратчайшего пути и его маршрут.
     std::pair<int, std::vector<int>> getNextShortestPath();
 };
 

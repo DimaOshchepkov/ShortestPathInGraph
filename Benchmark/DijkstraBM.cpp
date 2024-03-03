@@ -26,7 +26,7 @@ string getProjectDir() {
 
 std::vector<std::string> paths = { "graph2048.txt", "graph4096.txt", "graph8192.txt" };
 
-static void BM_ShortestPath(benchmark::State& state) {
+static void BM_ShortestPath_AdjMatrix(benchmark::State& state) {
     // Получение имени файла, начальной и конечной вершин из регистрации бенчмарка
     std::string graphFileName = paths[state.range(0)];
     int from = state.range(1);
@@ -42,7 +42,7 @@ static void BM_ShortestPath(benchmark::State& state) {
 }
 
 // Регистрация бенчмарка с передачей аргументов через диапазон
-BENCHMARK(BM_ShortestPath)->Unit(benchmark::kMillisecond)
+BENCHMARK(BM_ShortestPath_AdjMatrix)->Unit(benchmark::kMillisecond)
 ->Args({ 0, 0, 89})
 ->Args({ 1, 0, 89 })
 ->Args({ 2, 0, 89 });
