@@ -2,6 +2,8 @@
 #include "framework.h"
 
 #include <algorithm>
+#include <queue> // дл€ использовани€ priority_queue
+#include <utility> // дл€ использовани€ std::pair
 #include "ShortestPathManager.h"
 #include "Graph.h"
 
@@ -15,41 +17,54 @@ ShortestPathManager::ShortestPathManager(shared_ptr<IGraph> graph, int startVert
 
 pair<int, vector<int>> ShortestPathManager::__getShortestPath(int startVertex, int endVertex) {
     const int SIZE = graph->countTop();
-    
-    d.assign(graph->countTop(), numeric_limits<int>::max()); 
+    // “ип дл€ хранени€ рассто€ний и вершин
+    typedef std::pair<int, int> Pair; // <рассто€ние, вершина>
+
+    // —оздаем структуру дл€ сравнени€ пар
+    struct ComparePair {
+        bool operator()(Pair const& a, Pair const& b) {
+            return a.first > b.first; // сравниваем по рассто€нию
+        }
+    };
+
+    // »нициализаци€ кучи
+    std::priority_queue<Pair, std::vector<Pair>, ComparePair> pq;
+
+    // «амен€ем инициализацию массива d на вставку пар в кучу
+    pq.push(std::make_pair(0, startVertex)); // начальное рассто€ние до стартовой вершины равно 0
+    d.assign(graph->countTop(), numeric_limits<int>::max());
     d[startVertex] = 0;
 
-    int temp, minindex, min;
+    // »терации алгоритма ƒейкстры
+    int dist, u;
     do {
-        minindex = numeric_limits<int>::max();
-        min = numeric_limits<int>::max();
-        for (int i = 0; i < SIZE; i++)
-        {
-            if ((visited[i] == false) && (d[i] < min))
-            {
-                min = d[i];
-                minindex = i;
-            }
+        if (pq.empty()) {
+            return { -1, {} };
         }
-        if (minindex != numeric_limits<int>::max())
-        {
-            for (int i = 0; i < SIZE; i++)
-            {
-                if (graph->length_form_to(minindex, i) > 0)
-                {
-                    temp = min + graph->length_form_to(minindex, i);
-                    if (temp < d[i])
-                    {
-                        d[i] = temp;
-                    }
-                }
-            }
-            visited[minindex] = true;
-        }
-    } while (minindex != endVertex && minindex != numeric_limits<int>::max());
+        Pair top = pq.top(); pq.pop();
+        dist = top.first;
+        u = top.second;
 
-    if (minindex == numeric_limits<int>::max())
-        return { -1, {} };
+        // ѕроверка, посещали ли мы эту вершину
+        if (visited[u]) continue;
+        visited[u] = true;
+
+        // ѕеребор соседей вершины u
+        for (int i : graph->getVectorNeighbors(u)) {
+                int v = i;
+                int weight = graph->length_form_to(u, i);
+
+                // ќбновление рассто€ни€ до вершины v
+                if (dist + weight < d[v]) {
+                    d[v] = dist + weight;
+                    pq.push(std::make_pair(d[v], v)); // вставл€ем в кучу с новым рассто€нием
+                }
+        }
+        
+
+    } while (u != endVertex && dist != numeric_limits<int>::max());
+
+    
 
     vector<int> shortestPath;
     shortestPath.push_back(endVertex);
@@ -59,7 +74,7 @@ pair<int, vector<int>> ShortestPathManager::__getShortestPath(int startVertex, i
 
     while (currentVertex != startVertex) {
         for (int i = 0; i < SIZE; ++i) {
-            if (graph->length_form_to(i, currentVertex) != 0) {
+            if (graph->length_form_to(i, currentVertex) > 0) {
                 int temp = weight - graph->length_form_to(i, currentVertex);
                 if (temp == d[i]) {
                     weight = temp;
@@ -94,7 +109,7 @@ pair<int, vector<int>> ShortestPathManager::getNextShortestPath() {
     visited[endVertex] = false;
 
     if (!length_path_of_two_vertices.second.empty()) {
-        graph->changeEdge(length_path_of_two_vertices.second[0], length_path_of_two_vertices.second[1], -1);
+        graph->removeEdge(length_path_of_two_vertices.second[0], length_path_of_two_vertices.second[1]);
     }
 
     auto [length, path] = __getShortestPath(startVertex, endVertex);

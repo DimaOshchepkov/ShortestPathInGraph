@@ -23,3 +23,4 @@ public:
     std::pair<int, std::vector<int>> getShortestPath();
     std::pair<int, std::vector<int>> getNextShortestPath();
 };
+

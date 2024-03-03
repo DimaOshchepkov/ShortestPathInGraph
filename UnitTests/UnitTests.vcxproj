@@ -121,6 +121,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="graph2048.txt" />
     <Text Include="graph45.txt" />
     <Text Include="graph57.txt" />
   </ItemGroup>
