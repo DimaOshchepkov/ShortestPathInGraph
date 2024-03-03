@@ -34,4 +34,4 @@ BM_ShortestPath_AdjList/2/0/89         19.8 ms         14.6 ms           45
   - benchmark 
 ```.\vcpkg install benchmark```  
   - gtest 
-```.\vcpkg install gtest)```
+```.\vcpkg install gtest```
