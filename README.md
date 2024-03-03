@@ -30,4 +30,6 @@ BM_ShortestPath_AdjList/2/0/89         19.8 ms         14.6 ms           45
 
 ## Чтобы установить проект понадобиться
 - Visual Studio 2022
-- vcpkg с интеграцией для visual studio
+- [vcpkg](https://github.com/microsoft/vcpkg) с интеграцией для visual studio. Крутой [гайд](https://www.youtube.com/watch?v=0h1lC3QHLHU) по установке.=
+  - benchmark (.\vcpkg install benchmark)
+  - gtest (.\vcpkg install gtest)
