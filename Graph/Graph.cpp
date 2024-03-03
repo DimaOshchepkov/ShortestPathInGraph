@@ -101,7 +101,6 @@ std::vector<int> AdjencyMatrix::getVectorNeighbors(int vert)
     std::vector<int> result;
     result.reserve(400);
 
-    // Итерируемся по матрице и добавляем индексы ячеек, содержащих значения больше нуля, в вектор
     for (size_t i = 0; i < matrix[vert].size(); ++i) {
         if (matrix[vert][i] > 0) {
             result.push_back(i);
@@ -111,16 +110,13 @@ std::vector<int> AdjencyMatrix::getVectorNeighbors(int vert)
     return result;
 }
 
-// Конструктор
 AdjencyList::AdjencyList(int vertices) : adjacencyList(vertices) {}
 
 
-// Получение количества вершин
 int AdjencyList::countTop() const {
     return adjacencyList.size();
 }
 
-// Получение длины ребра между вершинами
 int AdjencyList::length_form_to(int from, int to) const {
     if (from < 0 || from >= adjacencyList.size()) {
         throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
@@ -138,7 +134,6 @@ int AdjencyList::length_form_to(int from, int to) const {
     return -1; // Если между вершинами нет ребра
 }
 
-// Изменение веса ребра между вершинами
 void AdjencyList::changeEdge(int from, int to, int value) {
     if (from < 0 || from >= adjacencyList.size()) {
         throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
@@ -150,11 +145,10 @@ void AdjencyList::changeEdge(int from, int to, int value) {
 
     for (auto& neighbor : adjacencyList[from]) {
         if (neighbor.first == to) {
-            neighbor.second = value; // Изменяем вес ребра
+            neighbor.second = value; 
             return;
         }
     }
-    // Если ребра нет, добавляем его
     adjacencyList[from].push_back(std::make_pair(to, value));
 }
 
@@ -167,8 +161,6 @@ std::vector<int> AdjencyList::getVectorNeighbors(int vert) {
     return neighbors;
 }
 
-
-// Конструктор из файла
 AdjencyList::AdjencyList(std::string path) {
     std::ifstream file(path);
 
@@ -202,9 +194,7 @@ AdjencyList::AdjencyList(AdjencyList&& other) noexcept : adjacencyList(std::move
 
 AdjencyList& AdjencyList::operator=(const AdjencyList& other) {
     if (this != &other) {
-        // Создаем копию объекта other
         AdjencyList temp(other);
-        // Обмениваем содержимое текущего объекта и временного объекта
         std::swap(adjacencyList, temp.adjacencyList);
     }
     return *this;
@@ -212,7 +202,6 @@ AdjencyList& AdjencyList::operator=(const AdjencyList& other) {
 
 AdjencyList& AdjencyList::operator=(AdjencyList&& other) noexcept {
     if (this != &other) {
-        // Производим перемещение содержимого объекта other в текущий объект
         adjacencyList = std::move(other.adjacencyList);
     }
     return *this;

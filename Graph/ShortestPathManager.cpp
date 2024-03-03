@@ -17,25 +17,30 @@ ShortestPathManager::ShortestPathManager(shared_ptr<IGraph> graph, int startVert
 
 pair<int, vector<int>> ShortestPathManager::__getShortestPath(int startVertex, int endVertex) {
     const int SIZE = graph->countTop();
-    // Тип для хранения расстояний и вершин
+    /// Тип для хранения расстояний и вершин
     typedef std::pair<int, int> Pair; // <расстояние, вершина>
 
-    // Создаем структуру для сравнения пар
+    /// Создаем структуру для сравнения пар
     struct ComparePair {
+        /// \brief Оператор сравнения пар.
+        ///
+        /// \param a Первая пара.
+        /// \param b Вторая пара.
+        /// \return True, если расстояние первой пары больше расстояния второй пары, иначе false.
         bool operator()(Pair const& a, Pair const& b) {
             return a.first > b.first; // сравниваем по расстоянию
         }
     };
 
-    // Инициализация кучи
+    /// Инициализация кучи
     std::priority_queue<Pair, std::vector<Pair>, ComparePair> pq;
 
-    // Заменяем инициализацию массива d на вставку пар в кучу
+    /// Заменяем инициализацию массива d на вставку пар в кучу
     pq.push(std::make_pair(0, startVertex)); // начальное расстояние до стартовой вершины равно 0
     d.assign(graph->countTop(), numeric_limits<int>::max());
     d[startVertex] = 0;
 
-    // Итерации алгоритма Дейкстры
+    /// Итерации алгоритма Дейкстры
     int dist, u;
     do {
         if (pq.empty()) {
@@ -45,22 +50,22 @@ pair<int, vector<int>> ShortestPathManager::__getShortestPath(int startVertex, i
         dist = top.first;
         u = top.second;
 
-        // Проверка, посещали ли мы эту вершину
+        /// Проверка, посещали ли мы эту вершину
         if (visited[u]) continue;
         visited[u] = true;
 
-        // Перебор соседей вершины u
+        /// Перебор соседей вершины u
         for (int i : graph->getVectorNeighbors(u)) {
-                int v = i;
-                int weight = graph->length_form_to(u, i);
+            int v = i;
+            int weight = graph->length_form_to(u, i);
 
-                // Обновление расстояния до вершины v
-                if (dist + weight < d[v]) {
-                    d[v] = dist + weight;
-                    pq.push(std::make_pair(d[v], v)); // вставляем в кучу с новым расстоянием
-                }
+            /// Обновление расстояния до вершины v
+            if (dist + weight < d[v]) {
+                d[v] = dist + weight;
+                pq.push(std::make_pair(d[v], v)); // вставляем в кучу с новым расстоянием
+            }
         }
-        
+
 
     } while (u != endVertex && dist != numeric_limits<int>::max());
 
