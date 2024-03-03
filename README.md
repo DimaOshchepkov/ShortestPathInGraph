@@ -27,3 +27,7 @@ BM_ShortestPath_AdjList/2/0/89         19.8 ms         14.6 ms           45
 ## Немного о структуре проекта
 Алгоритм поиска находится в [файле](./Graph/ShortestPathManager.cpp).
 Бенчмарк находится в [файле](./Benchmark/DijkstraBM.cpp).
+
+## Чтобы установить проект понадобиться
+- Visual Studio 2022
+- vcpkg с интеграцией для visual studio
