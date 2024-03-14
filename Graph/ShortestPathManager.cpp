@@ -131,9 +131,3 @@ pair<int, vector<int>> ShortestPathManager::getNextShortestPath() {
     }
     return { length, path };
 }
-
-void ShortestPathManager::resetEnv()
-{
-    visited.assign(graph->countTop(), false);
-    length_path_of_two_vertices = {};
-}
