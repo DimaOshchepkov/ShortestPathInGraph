@@ -42,8 +42,5 @@ public:
     ///
     /// \return Пара, содержащая длину кратчайшего пути и его маршрут.
     std::pair<int, std::vector<int>> getNextShortestPath();
-
-
-    void resetEnv();
 };
 
