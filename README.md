@@ -12,17 +12,21 @@ CPU Caches:
   L1 Instruction 32 KiB (x4)
   L2 Unified 256 KiB (x4)
   L3 Unified 6144 KiB (x1)
----------------------------------------------------------------------------
-Benchmark                                 Time             CPU   Iterations
----------------------------------------------------------------------------
-BM_ShortestPath_AdjMatrix/0/0/89       4.75 ms         2.85 ms          280
-BM_ShortestPath_AdjMatrix/1/0/89       17.2 ms         14.2 ms           66
-BM_ShortestPath_AdjMatrix/2/0/89       68.9 ms         50.0 ms           10
-BM_ShortestPath_AdjList/0/0/89        0.713 ms        0.531 ms         1000
-BM_ShortestPath_AdjList/1/0/89         3.33 ms         2.71 ms          213
-BM_ShortestPath_AdjList/2/0/89         19.8 ms         14.6 ms           45
+-------------------------------------------------------------------------------
+Benchmark                                     Time             CPU   Iterations
+-------------------------------------------------------------------------------
+BM_ShortestPath_AdjMatrix/graph_2048       13.8 ms         8.46 ms          109
+BM_ShortestPath_AdjMatrix/graph_4096       37.6 ms         20.5 ms           32
+BM_ShortestPath_AdjMatrix/graph_8192        107 ms         62.5 ms           12
+BM_ShortestPath_AdjMatrix/graph_100       0.520 ms        0.377 ms         2240
+BM_ShortestPath_AdjMatrix/graph_50        0.296 ms        0.195 ms         3446
+BM_ShortestPath_AdjList/graph_2048         9.95 ms         6.56 ms          112
+BM_ShortestPath_AdjList/graph_4096         22.5 ms         14.9 ms           45
+BM_ShortestPath_AdjList/graph_8192         59.1 ms         37.2 ms           21
+BM_ShortestPath_AdjList/graph_100         0.494 ms        0.330 ms         2133
+BM_ShortestPath_AdjList/graph_50          0.297 ms        0.172 ms         3733
 ```
-Как видно из бенчмарка храня матрицу в виде списка смежности, мы получаем прирост в производительности 4-5 раз.
+Как видно из бенчмарка храня матрицу в виде списка смежности, мы получаем прирост в производительности 1,5 раза на больших графах. На малых графач почти не получаем прироста
 
 ## Немного о структуре проекта
 Алгоритм поиска находится в [файле](./Graph/ShortestPathManager.cpp).
