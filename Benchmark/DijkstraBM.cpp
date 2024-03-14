@@ -24,6 +24,7 @@ string getProjectDir() {
     return projectDir;
 }
 
+
 std::vector<std::string> paths = { "graph2048.txt", "graph4096.txt", "graph8192.txt" };
 
 static void BM_ShortestPath_AdjMatrix(benchmark::State& state) {

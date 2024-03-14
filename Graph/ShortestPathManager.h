@@ -13,7 +13,6 @@ private:
     std::shared_ptr<IGraph> graph; ///< Указатель на объект графа.
     std::vector<int> d; ///< Вектор кратчайших расстояний от стартовой вершины.
     std::vector<bool> visited; ///< Вектор, отмечающий посещенные вершины.
-    std::vector<bool> banned; ///< Вектор, отмечающий запрещенные вершины.
     int startVertex; ///< Начальная вершина для поиска кратчайшего пути.
     int endVertex; ///< Конечная вершина для поиска кратчайшего пути.
     std::pair<int, std::vector<int>> length_path_of_two_vertices; ///< Длина и путь кратчайшего пути между двумя вершинами.
@@ -43,5 +42,8 @@ public:
     ///
     /// \return Пара, содержащая длину кратчайшего пути и его маршрут.
     std::pair<int, std::vector<int>> getNextShortestPath();
+
+
+    void resetEnv();
 };
 

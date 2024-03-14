@@ -12,8 +12,7 @@ using namespace std;
 ShortestPathManager::ShortestPathManager(shared_ptr<IGraph> graph, int startVertex, int endVertex) :
     graph(graph), startVertex(startVertex), endVertex(endVertex),
     d(graph->countTop(), numeric_limits<int>::max()),
-    visited(graph->countTop(), false),
-    banned(graph->countTop(), false) {}
+    visited(graph->countTop(), false) {}
 
 pair<int, vector<int>> ShortestPathManager::__getShortestPath(int startVertex, int endVertex) {
     const int SIZE = graph->countTop();
@@ -96,23 +95,23 @@ pair<int, vector<int>> ShortestPathManager::__getShortestPath(int startVertex, i
 }
 
 pair<int, vector<int>> ShortestPathManager::getShortestPath() {
-    banned.assign(graph->countTop(), false);
     visited.assign(graph->countTop(), false);
     length_path_of_two_vertices.second.clear();
 
     auto [length, path] = __getShortestPath(startVertex, endVertex);
     for (auto bannedVertex : path) {
-        banned[bannedVertex] = true;
+        visited[bannedVertex] = true;
     }
     return { length, path };
 }
 
     
 pair<int, vector<int>> ShortestPathManager::getNextShortestPath() {
-    visited.assign(banned.begin(), banned.end());
+    /// Начальные вершины должны быть в любом случае
     visited[startVertex] = false;
     visited[endVertex] = false;
 
+    /// Обработка особого случая, когда путь состоити только из начальной и конечной вершины
     if (!length_path_of_two_vertices.second.empty()) {
         graph->removeEdge(length_path_of_two_vertices.second[0], length_path_of_two_vertices.second[1]);
     }
@@ -122,12 +121,19 @@ pair<int, vector<int>> ShortestPathManager::getNextShortestPath() {
         length_path_of_two_vertices = { length, path };
     }
 
+    /// Обработка особого случая, когда путь состоити только из начальной и конечной вершины
     if (!length_path_of_two_vertices.second.empty()) {
         graph->changeEdge(length_path_of_two_vertices.second[0], length_path_of_two_vertices.second[1], length_path_of_two_vertices.first);
     }
 
     for (auto bannedVertex : path) {
-        banned[bannedVertex] = true;
+        visited[bannedVertex] = true;
     }
     return { length, path };
+}
+
+void ShortestPathManager::resetEnv()
+{
+    visited.assign(graph->countTop(), false);
+    length_path_of_two_vertices = {};
 }
