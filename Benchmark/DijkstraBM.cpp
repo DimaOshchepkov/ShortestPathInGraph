@@ -25,44 +25,48 @@ string getProjectDir() {
 }
 
 
-std::vector<std::string> paths = { "graph2048.txt", "graph4096.txt", "graph8192.txt" };
 
-static void BM_ShortestPath_AdjMatrix(benchmark::State& state) {
-    std::string graphFileName = paths[state.range(0)];
-    int from = state.range(1);
-    int to = state.range(2);
 
+std::vector<std::string> paths = { "graph2048.txt", "graph4096.txt", "graph8192.txt", "graph100.txt"};
+
+static void BM_ShortestPath_AdjMatrix(benchmark::State& state, const std::string& graphFileName, int from, int to) {
     AdjencyMatrix matrix(getProjectDir() + "\\" + graphFileName);
-    ShortestPathManager manager(make_shared<AdjencyMatrix>(matrix), from, to);
+    ShortestPathManager manager(std::make_shared<AdjencyMatrix>(matrix), from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
+        for (int i = 0; i < 5; i++) {
+            benchmark::DoNotOptimize(manager.getNextShortestPath());
+        }
         benchmark::DoNotOptimize(manager.getShortestPath());
     }
 }
 
-BENCHMARK(BM_ShortestPath_AdjMatrix)->Unit(benchmark::kMillisecond)
-->Args({ 0, 0, 89})
-->Args({ 1, 0, 89 })
-->Args({ 2, 0, 89 });
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjMatrix, graph_2048, "graph2048.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjMatrix, graph_4096, "graph4096.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjMatrix, graph_8192, "graph8192.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjMatrix, graph_100, "graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjMatrix, graph_50, "graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
 
-static void BM_ShortestPath_AdjList(benchmark::State& state) {
-    std::string graphFileName = paths[state.range(0)];
-    int from = state.range(1);
-    int to = state.range(2);
+
+static void BM_ShortestPath_AdjList(benchmark::State& state, const std::string& graphFileName, int from, int to) {
 
     AdjencyList matrix(getProjectDir() + "\\" + graphFileName);
     ShortestPathManager manager(make_shared<AdjencyList>(matrix), from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
+        for (int i = 0; i < 5; i++) {
+            benchmark::DoNotOptimize(manager.getNextShortestPath());
+        }
         benchmark::DoNotOptimize(manager.getShortestPath());
     }
 }
 
-BENCHMARK(BM_ShortestPath_AdjList)->Unit(benchmark::kMillisecond)
-->Args({ 0, 0, 89 })
-->Args({ 1, 0, 89 })
-->Args({ 2, 0, 89 });
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjList, graph_2048, "graph2048.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjList, graph_4096, "graph4096.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjList, graph_8192, "graph8192.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjList, graph_100, "graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_ShortestPath_AdjList, graph_50, "graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();
