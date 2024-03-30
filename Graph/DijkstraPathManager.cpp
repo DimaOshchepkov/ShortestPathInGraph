@@ -13,7 +13,8 @@ template<typename EdgeType>
 DijkstraPathManager<EdgeType>::DijkstraPathManager(shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
     graph(graph), startVertex(startVertex), endVertex(endVertex),
     d(graph->countTop(), numeric_limits<int>::max()),
-    visited(graph->countTop(), false) {}
+    visited(graph->countTop(), false),
+    banned(graph->countTop(), false) {}
 
 template<typename EdgeType>
 pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int startVertex, int endVertex) {
@@ -99,11 +100,12 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
 template<typename EdgeType>
 pair<int, vector<int>> DijkstraPathManager<EdgeType>::getShortestPath() {
     visited.assign(graph->countTop(), false);
+    banned.assign(graph->countTop(), false);
     length_path_of_two_vertices.second.clear();
 
     auto [length, path] = __getShortestPath(startVertex, endVertex);
     for (auto bannedVertex : path) {
-        visited[bannedVertex] = true;
+        banned[bannedVertex] = true;
     }
     return { length, path };
 }
@@ -111,6 +113,7 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::getShortestPath() {
 template<typename EdgeType>
 pair<int, vector<int>> DijkstraPathManager<EdgeType>::getNextShortestPath() {
     /// Ќачальные вершины должны быть в любом случае
+    visited = banned;
     visited[startVertex] = false;
     visited[endVertex] = false;
 
@@ -130,7 +133,7 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::getNextShortestPath() {
     }
 
     for (auto bannedVertex : path) {
-        visited[bannedVertex] = true;
+        banned[bannedVertex] = true;
     }
     return { length, path };
 }

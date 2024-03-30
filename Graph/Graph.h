@@ -1,6 +1,5 @@
 #pragma once
 
-#pragma once
 
 #include <string>
 #include <vector>
@@ -126,7 +125,7 @@ public:
 template<typename EdgeType>
 class AdjencyList : public IGraph<EdgeType>{
 private:
-    std::vector<std::vector<std::pair<int, int>>> adjacencyList; /**< Список смежности графа. */
+    std::vector<std::vector<std::pair<int, EdgeType>>> adjacencyList; /**< Список смежности графа. */
 
 public:
     /// \brief Конструктор класса, создающий пустой список смежности для указанного количества вершин.
@@ -192,3 +191,7 @@ public:
     /// \param end Конечная вершина ребра.
     void removeEdge(int start, int end) override;
 };
+
+
+
+

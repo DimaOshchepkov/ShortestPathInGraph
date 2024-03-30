@@ -27,14 +27,14 @@ AdjencyMatrix<EdgeType>::AdjencyMatrix(std::string path)
     this->matrix = std::vector<std::vector<EdgeType>>(countTop, std::vector<EdgeType>(countTop, 0));
     for (int i = 0; i < countEdges; ++i) {
         int from, to;
-        EdgeType length;
+        double length;
         if (!(file >> from >> to >> length)) {
             throw std::runtime_error("Failed to read edge from file");
         }
         if (from < 0 || from >= countTop || to < 0 || to >= countTop) {
             throw std::runtime_error("Invalid edge indices in file");
         }
-        matrix[from][to] = length;
+        matrix[from][to] = static_cast<EdgeType>(length);
     }
     file.close();
 }
@@ -146,6 +146,8 @@ EdgeType AdjencyList<EdgeType>::length_form_to(int from, int to) const {
     return 0; // Если между вершинами нет ребра
 }
 
+
+
 template<typename EdgeType>
 void AdjencyList<EdgeType>::changeEdge(int from, int to, EdgeType value) {
     if (from < 0 || from >= adjacencyList.size()) {
@@ -165,6 +167,8 @@ void AdjencyList<EdgeType>::changeEdge(int from, int to, EdgeType value) {
     adjacencyList[from].push_back(std::make_pair(to, value));
 }
 
+
+
 template<typename EdgeType>
 std::vector<int> AdjencyList<EdgeType>::getVectorNeighbors(int vert) {
     std::vector<int> neighbors;
@@ -174,6 +178,8 @@ std::vector<int> AdjencyList<EdgeType>::getVectorNeighbors(int vert) {
     }
     return neighbors;
 }
+
+
 
 template<typename EdgeType>
 AdjencyList<EdgeType>::AdjencyList(std::string path) {
@@ -188,7 +194,7 @@ AdjencyList<EdgeType>::AdjencyList(std::string path) {
         throw std::runtime_error("Failed to read counts from file");
     }
 
-    this->adjacencyList = std::vector<std::vector<std::pair<int, int>>>(countTop);
+    this->adjacencyList = std::vector<std::vector<std::pair<int, EdgeType>>>(countTop);
     for (int i = 0; i < countEdges; ++i) {
         int from, to, length;
         if (!(file >> from >> to >> length)) {
@@ -201,6 +207,8 @@ AdjencyList<EdgeType>::AdjencyList(std::string path) {
     }
     file.close();
 }
+
+
 
 template<typename EdgeType>
 AdjencyList<EdgeType>::AdjencyList(const AdjencyList<EdgeType>& other) : adjacencyList(other.adjacencyList) {}
@@ -243,6 +251,7 @@ void AdjencyList<EdgeType>::removeEdge(int from, int to) {
         }
     }
 }
+
 
 template<typename EdgeType>
 void AdjencyMatrix<EdgeType>::removeEdge(int from, int to) {
