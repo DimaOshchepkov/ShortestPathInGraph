@@ -9,12 +9,12 @@
 
 using namespace std;
 
-ShortestPathManager::ShortestPathManager(shared_ptr<IGraph> graph, int startVertex, int endVertex) :
+DijkstraPathManager::DijkstraPathManager(shared_ptr<IGraph> graph, int startVertex, int endVertex) :
     graph(graph), startVertex(startVertex), endVertex(endVertex),
     d(graph->countTop(), numeric_limits<int>::max()),
     visited(graph->countTop(), false) {}
 
-pair<int, vector<int>> ShortestPathManager::__getShortestPath(int startVertex, int endVertex) {
+pair<int, vector<int>> DijkstraPathManager::__getShortestPath(int startVertex, int endVertex) {
     const int SIZE = graph->countTop();
     /// “ип дл€ хранени€ рассто€ний и вершин
     typedef std::pair<int, int> Pair; // <рассто€ние, вершина>
@@ -94,7 +94,7 @@ pair<int, vector<int>> ShortestPathManager::__getShortestPath(int startVertex, i
     return make_pair(d[endVertex], shortestPath);
 }
 
-pair<int, vector<int>> ShortestPathManager::getShortestPath() {
+pair<int, vector<int>> DijkstraPathManager::getShortestPath() {
     visited.assign(graph->countTop(), false);
     length_path_of_two_vertices.second.clear();
 
@@ -106,7 +106,7 @@ pair<int, vector<int>> ShortestPathManager::getShortestPath() {
 }
 
     
-pair<int, vector<int>> ShortestPathManager::getNextShortestPath() {
+pair<int, vector<int>> DijkstraPathManager::getNextShortestPath() {
     /// Ќачальные вершины должны быть в любом случае
     visited[startVertex] = false;
     visited[endVertex] = false;
