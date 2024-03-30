@@ -6,6 +6,9 @@
 
 #include "gtest/gtest.h"
 
+#include "Graph_bool.h"
+
+
 #include "Graph.h"
 #include "Graph.cpp"
 
