@@ -10,8 +10,8 @@
 #include <algorithm>
 #include <stdexcept>
 
-
-AdjencyMatrix::AdjencyMatrix(std::string path)
+template<typename EdgeType>
+AdjencyMatrix<EdgeType>::AdjencyMatrix(std::string path)
 {
     std::ifstream file(path);
 
@@ -24,9 +24,10 @@ AdjencyMatrix::AdjencyMatrix(std::string path)
         throw std::runtime_error("Failed to read counts from file");
     }
 
-    this->matrix = std::vector<std::vector<int>>(countTop, std::vector<int>(countTop, -1));
+    this->matrix = std::vector<std::vector<EdgeType>>(countTop, std::vector<EdgeType>(countTop, 0));
     for (int i = 0; i < countEdges; ++i) {
-        int from, to, length;
+        int from, to;
+        EdgeType length;
         if (!(file >> from >> to >> length)) {
             throw std::runtime_error("Failed to read edge from file");
         }
@@ -38,15 +39,18 @@ AdjencyMatrix::AdjencyMatrix(std::string path)
     file.close();
 }
 
-AdjencyMatrix::AdjencyMatrix(const AdjencyMatrix& other) : matrix(other.matrix) {}
+template<typename EdgeType>
+AdjencyMatrix<EdgeType>::AdjencyMatrix(const AdjencyMatrix& other) : matrix(other.matrix) {}
 
-AdjencyMatrix::AdjencyMatrix(AdjencyMatrix&& other) noexcept
+template<typename EdgeType>
+AdjencyMatrix<EdgeType>::AdjencyMatrix(AdjencyMatrix<EdgeType>&& other) noexcept
     : matrix(std::move(other.matrix)){
     
     other.~AdjencyMatrix();
 }
 
-AdjencyMatrix& AdjencyMatrix::operator=(const AdjencyMatrix& other) {
+template<typename EdgeType>
+AdjencyMatrix<EdgeType>& AdjencyMatrix<EdgeType>::operator=(const AdjencyMatrix<EdgeType>& other) {
     if (this != &other) {
         AdjencyMatrix temp(other);
         swap(temp.matrix, matrix);
@@ -54,7 +58,8 @@ AdjencyMatrix& AdjencyMatrix::operator=(const AdjencyMatrix& other) {
     return *this;
 }
 
-AdjencyMatrix& AdjencyMatrix::operator=(AdjencyMatrix&& other) noexcept {
+template<typename EdgeType>
+AdjencyMatrix<EdgeType>& AdjencyMatrix<EdgeType>::operator=(AdjencyMatrix<EdgeType>&& other) noexcept {
     if (this != &other) {
         AdjencyMatrix temp(std::move(other));
         swap(temp.matrix, matrix);
@@ -62,10 +67,12 @@ AdjencyMatrix& AdjencyMatrix::operator=(AdjencyMatrix&& other) noexcept {
     return *this;
 }
 
-AdjencyMatrix::AdjencyMatrix(int countTop) : matrix(vector<vector<int>>(countTop, vector<int>(countTop, 0))) {}
+template<typename EdgeType>
+AdjencyMatrix<EdgeType>::AdjencyMatrix(int countTop) : matrix(vector<vector<EdgeType>>(countTop, vector<EdgeType>(countTop, 0))) {}
 
 
-int AdjencyMatrix::length_form_to(int from, int to) const
+template<typename EdgeType>
+EdgeType AdjencyMatrix<EdgeType>::length_form_to(int from, int to) const
 {
     if (from < 0 || from >= matrix.size()) {
         throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
@@ -78,12 +85,14 @@ int AdjencyMatrix::length_form_to(int from, int to) const
     return matrix[from][to];
 }
 
-int AdjencyMatrix::countTop() const
+template<typename EdgeType>
+int AdjencyMatrix<EdgeType>::countTop() const
 {
     return matrix.size();
 }
 
-void AdjencyMatrix::changeEdge(int from, int to, int value)
+template<typename EdgeType>
+void AdjencyMatrix<EdgeType>::changeEdge(int from, int to, EdgeType value)
 {
     if (from < 0 || from >= matrix.size()) {
         throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
@@ -96,7 +105,8 @@ void AdjencyMatrix::changeEdge(int from, int to, int value)
     matrix[from][to] = value;
 }
 
-std::vector<int> AdjencyMatrix::getVectorNeighbors(int vert)
+template<typename EdgeType>
+std::vector<int> AdjencyMatrix<EdgeType>::getVectorNeighbors(int vert)
 {
     std::vector<int> result;
     result.reserve(400);
@@ -110,14 +120,16 @@ std::vector<int> AdjencyMatrix::getVectorNeighbors(int vert)
     return result;
 }
 
-AdjencyList::AdjencyList(int vertices) : adjacencyList(vertices) {}
+template<typename EdgeType>
+AdjencyList<EdgeType>::AdjencyList(int vertices) : adjacencyList(vertices) {}
 
-
-int AdjencyList::countTop() const {
+template<typename EdgeType>
+int AdjencyList<EdgeType>::countTop() const {
     return adjacencyList.size();
 }
 
-int AdjencyList::length_form_to(int from, int to) const {
+template<typename EdgeType>
+EdgeType AdjencyList<EdgeType>::length_form_to(int from, int to) const {
     if (from < 0 || from >= adjacencyList.size()) {
         throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
     }
@@ -131,10 +143,11 @@ int AdjencyList::length_form_to(int from, int to) const {
             return neighbor.second; // Возвращаем вес ребра
         }
     }
-    return -1; // Если между вершинами нет ребра
+    return 0; // Если между вершинами нет ребра
 }
 
-void AdjencyList::changeEdge(int from, int to, int value) {
+template<typename EdgeType>
+void AdjencyList<EdgeType>::changeEdge(int from, int to, EdgeType value) {
     if (from < 0 || from >= adjacencyList.size()) {
         throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
     }
@@ -152,7 +165,8 @@ void AdjencyList::changeEdge(int from, int to, int value) {
     adjacencyList[from].push_back(std::make_pair(to, value));
 }
 
-std::vector<int> AdjencyList::getVectorNeighbors(int vert) {
+template<typename EdgeType>
+std::vector<int> AdjencyList<EdgeType>::getVectorNeighbors(int vert) {
     std::vector<int> neighbors;
     neighbors.reserve(400);
     for (const auto& neighbor : adjacencyList[vert]) {
@@ -161,7 +175,8 @@ std::vector<int> AdjencyList::getVectorNeighbors(int vert) {
     return neighbors;
 }
 
-AdjencyList::AdjencyList(std::string path) {
+template<typename EdgeType>
+AdjencyList<EdgeType>::AdjencyList(std::string path) {
     std::ifstream file(path);
 
     if (!file.is_open()) {
@@ -187,12 +202,14 @@ AdjencyList::AdjencyList(std::string path) {
     file.close();
 }
 
-AdjencyList::AdjencyList(const AdjencyList& other) : adjacencyList(other.adjacencyList) {}
+template<typename EdgeType>
+AdjencyList<EdgeType>::AdjencyList(const AdjencyList<EdgeType>& other) : adjacencyList(other.adjacencyList) {}
 
+template<typename EdgeType>
+AdjencyList<EdgeType>::AdjencyList(AdjencyList<EdgeType>&& other) noexcept : adjacencyList(std::move(other.adjacencyList)) {}
 
-AdjencyList::AdjencyList(AdjencyList&& other) noexcept : adjacencyList(std::move(other.adjacencyList)) {}
-
-AdjencyList& AdjencyList::operator=(const AdjencyList& other) {
+template<typename EdgeType>
+AdjencyList<EdgeType>& AdjencyList<EdgeType>::operator=(const AdjencyList<EdgeType>& other) {
     if (this != &other) {
         AdjencyList temp(other);
         std::swap(adjacencyList, temp.adjacencyList);
@@ -200,14 +217,16 @@ AdjencyList& AdjencyList::operator=(const AdjencyList& other) {
     return *this;
 }
 
-AdjencyList& AdjencyList::operator=(AdjencyList&& other) noexcept {
+template<typename EdgeType>
+AdjencyList<EdgeType>& AdjencyList<EdgeType>::operator=(AdjencyList<EdgeType>&& other) noexcept {
     if (this != &other) {
         adjacencyList = std::move(other.adjacencyList);
     }
     return *this;
 }
 
-void AdjencyList::removeEdge(int from, int to) {
+template<typename EdgeType>
+void AdjencyList<EdgeType>::removeEdge(int from, int to) {
     if (from < 0 || from >= adjacencyList.size()) {
         throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
     }
@@ -225,7 +244,8 @@ void AdjencyList::removeEdge(int from, int to) {
     }
 }
 
-void AdjencyMatrix::removeEdge(int from, int to) {
+template<typename EdgeType>
+void AdjencyMatrix<EdgeType>::removeEdge(int from, int to) {
     if (from < 0 || from >= matrix.size()) {
         throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
     }
@@ -234,5 +254,5 @@ void AdjencyMatrix::removeEdge(int from, int to) {
         throw std::runtime_error("Vertex " + std::to_string(to) + " is not exist");
     }
 
-    matrix[from][to] = -1;
+    matrix[from][to] = 0;
 }

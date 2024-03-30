@@ -1,7 +1,7 @@
 #include "pch.h"
 
 TEST(AdjencyMatrixTest, FileInput) {
-    AdjencyMatrix matrix(getProjectDir() + "\\graph45.txt");
+    AdjencyMatrix<int> matrix(getProjectDir() + "\\graph45.txt");
 
     ASSERT_EQ(matrix.length_form_to(0, 1), 10);
     ASSERT_EQ(matrix.length_form_to(0, 2), 15);
@@ -11,7 +11,7 @@ TEST(AdjencyMatrixTest, FileInput) {
 }
 
 TEST(AdjencyMatrixTest, InvalidVertexIndices) {
-    AdjencyMatrix matrix(getProjectDir() + "\\graph45.txt");
+    AdjencyMatrix<int> matrix(getProjectDir() + "\\graph45.txt");
 
     ASSERT_THROW(matrix.length_form_to(-1, 1), std::runtime_error);
     ASSERT_THROW(matrix.length_form_to(4, 1), std::runtime_error);
@@ -21,15 +21,15 @@ TEST(AdjencyMatrixTest, InvalidVertexIndices) {
 }
 
 TEST(AdjencyMatrixTest, NoEdgeExists) {
-    AdjencyMatrix matrix(getProjectDir() + "\\graph45.txt");
+    AdjencyMatrix<int> matrix(getProjectDir() + "\\graph45.txt");
 
-    ASSERT_EQ(matrix.length_form_to(0, 3), -1);  
-    ASSERT_EQ(matrix.length_form_to(1, 3), -1);  
-    ASSERT_EQ(matrix.length_form_to(3, 0), -1); 
+    ASSERT_EQ(matrix.length_form_to(0, 3), 0);  
+    ASSERT_EQ(matrix.length_form_to(1, 3), 0);  
+    ASSERT_EQ(matrix.length_form_to(3, 0), 0); 
 }
 
 TEST(AdjencyMatrixTest, ListFileInput) {
-    AdjencyList matrix(getProjectDir() + "\\graph45.txt");
+    AdjencyList<int> matrix(getProjectDir() + "\\graph45.txt");
 
     ASSERT_EQ(matrix.length_form_to(0, 1), 10);
     ASSERT_EQ(matrix.length_form_to(0, 2), 15);
@@ -39,7 +39,7 @@ TEST(AdjencyMatrixTest, ListFileInput) {
 }
 
 TEST(AdjacencyListTest, ListInvalidVertexIndices) {
-    AdjencyList matrix(getProjectDir() + "\\graph45.txt");
+    AdjencyList<int> matrix(getProjectDir() + "\\graph45.txt");
 
     ASSERT_THROW(matrix.length_form_to(-1, 1), std::runtime_error);
     ASSERT_THROW(matrix.length_form_to(4, 1), std::runtime_error);
@@ -49,9 +49,9 @@ TEST(AdjacencyListTest, ListInvalidVertexIndices) {
 }
 
 TEST(AdjacencyListTest, ListNoEdgeExists) {
-    AdjencyList matrix(getProjectDir() + "\\graph45.txt");
+    AdjencyList<int> matrix(getProjectDir() + "\\graph45.txt");
 
-    ASSERT_EQ(matrix.length_form_to(0, 3), -1);  
-    ASSERT_EQ(matrix.length_form_to(1, 3), -1);  
-    ASSERT_EQ(matrix.length_form_to(3, 0), -1);  
+    ASSERT_EQ(matrix.length_form_to(0, 3), 0);  
+    ASSERT_EQ(matrix.length_form_to(1, 3), 0);  
+    ASSERT_EQ(matrix.length_form_to(3, 0), 0);  
 }

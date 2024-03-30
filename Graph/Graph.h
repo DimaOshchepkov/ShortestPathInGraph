@@ -12,6 +12,7 @@ using std::string;
 ///
 /// Этот интерфейс определяет методы, которые должны быть реализованы в классах,
 /// представляющих конкретные способы хранения графа, такие как список смежности или матрица смежности.
+template<typename EdgeType>
 class IGraph {
 public:
     /// \brief Виртуальный метод для получения длины ребра между указанными вершинами.
@@ -19,7 +20,7 @@ public:
     /// \param from Начальная вершина.
     /// \param to Конечная вершина.
     /// \return Длина ребра между вершинами from и to. Если ребра нет, вернет -1
-    virtual int length_form_to(int from, int to) const = 0;
+    virtual EdgeType length_form_to(int from, int to) const = 0;
 
     /// \brief Виртуальный метод для получения количества вершин в графе.
     ///
@@ -31,7 +32,7 @@ public:
     /// \param from Начальная вершина ребра.
     /// \param to Конечная вершина ребра.
     /// \param value Новое значение веса ребра.
-    virtual void changeEdge(int from, int to, int value) = 0;
+    virtual void changeEdge(int from, int to, EdgeType value) = 0;
 
     /// \brief Виртуальный метод для получения вектора смежных вершин для указанной вершины.
     ///
@@ -48,9 +49,10 @@ public:
 
 /// \brief Класс AdjencyMatrix представляет реализацию интерфейса IGraph,
 ///        хранящую граф в виде матрицы смежности.
-class AdjencyMatrix : public IGraph {
+template<typename EdgeType>
+class AdjencyMatrix : public IGraph<EdgeType>{
 private:
-    vector<vector<int>> matrix; /**< Матрица смежности графа. */
+    vector<vector<EdgeType>> matrix; /**< Матрица смежности графа. */
 
 public:
     /// \brief Конструктор класса, загружающий граф из файла по указанному пути.
@@ -90,7 +92,7 @@ public:
     /// \param from Начальная вершина.
     /// \param to Конечная вершина.
     /// \return Длина ребра между вершинами from и to. Если ребра нет, вернет -1
-    int length_form_to(int from, int to) const override;
+    EdgeType length_form_to(int from, int to) const override;
 
     /// \brief Метод для получения количества вершин в графе.
     ///
@@ -102,7 +104,7 @@ public:
     /// \param from Начальная вершина ребра.
     /// \param to Конечная вершина ребра.
     /// \param value Новое значение веса ребра.
-    void changeEdge(int from, int to, int value) override;
+    void changeEdge(int from, int to, EdgeType value) override;
 
     /// \brief Метод для получения вектора смежных вершин для указанной вершины.
     ///
@@ -121,7 +123,8 @@ public:
 
 /// \brief Класс AdjencyList представляет реализацию интерфейса IGraph,
 ///        хранящую граф в виде списка смежности.
-class AdjencyList : public IGraph {
+template<typename EdgeType>
+class AdjencyList : public IGraph<EdgeType>{
 private:
     std::vector<std::vector<std::pair<int, int>>> adjacencyList; /**< Список смежности графа. */
 
@@ -141,14 +144,14 @@ public:
     /// \param from Начальная вершина.
     /// \param to Конечная вершина.
     /// \return Длина ребра между вершинами from и to. Если вершины нет, вернет -1.
-    virtual int length_form_to(int from, int to) const override;
+    virtual EdgeType length_form_to(int from, int to) const override;
 
     /// \brief Виртуальный метод для изменения веса ребра между указанными вершинами.
     ///
     /// \param from Начальная вершина ребра.
     /// \param to Конечная вершина ребра.
     /// \param value Новое значение веса ребра.
-    virtual void changeEdge(int from, int to, int value) override;
+    virtual void changeEdge(int from, int to, EdgeType value) override;
 
     /// \brief Виртуальный метод для получения вектора смежных вершин для указанной вершины.
     ///

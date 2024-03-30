@@ -4,17 +4,19 @@
 #include <algorithm>
 #include <queue> // для использования priority_queue
 #include <utility> // для использования std::pair
-#include "ShortestPathManager.h"
+#include "DijkstraPathManager.h"
 #include "Graph.h"
 
 using namespace std;
 
-DijkstraPathManager::DijkstraPathManager(shared_ptr<IGraph> graph, int startVertex, int endVertex) :
+template<typename EdgeType>
+DijkstraPathManager<EdgeType>::DijkstraPathManager(shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
     graph(graph), startVertex(startVertex), endVertex(endVertex),
     d(graph->countTop(), numeric_limits<int>::max()),
     visited(graph->countTop(), false) {}
 
-pair<int, vector<int>> DijkstraPathManager::__getShortestPath(int startVertex, int endVertex) {
+template<typename EdgeType>
+pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int startVertex, int endVertex) {
     const int SIZE = graph->countTop();
     /// Тип для хранения расстояний и вершин
     typedef std::pair<int, int> Pair; // <расстояние, вершина>
@@ -94,7 +96,8 @@ pair<int, vector<int>> DijkstraPathManager::__getShortestPath(int startVertex, i
     return make_pair(d[endVertex], shortestPath);
 }
 
-pair<int, vector<int>> DijkstraPathManager::getShortestPath() {
+template<typename EdgeType>
+pair<int, vector<int>> DijkstraPathManager<EdgeType>::getShortestPath() {
     visited.assign(graph->countTop(), false);
     length_path_of_two_vertices.second.clear();
 
@@ -105,8 +108,8 @@ pair<int, vector<int>> DijkstraPathManager::getShortestPath() {
     return { length, path };
 }
 
-    
-pair<int, vector<int>> DijkstraPathManager::getNextShortestPath() {
+template<typename EdgeType>
+pair<int, vector<int>> DijkstraPathManager<EdgeType>::getNextShortestPath() {
     /// Начальные вершины должны быть в любом случае
     visited[startVertex] = false;
     visited[endVertex] = false;

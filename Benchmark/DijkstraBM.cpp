@@ -3,7 +3,11 @@
 #include <iostream>
 #include <string>
 
-#include "ShortestPathManager.h" 
+#include "DijkstraPathManager.h" 
+#include "DijkstraPathManager.cpp" 
+
+#include "Graph.h"
+#include "Graph.cpp"
 
 using namespace std;
 
@@ -30,8 +34,8 @@ string getProjectDir() {
 std::vector<std::string> paths = { "graph2048.txt", "graph4096.txt", "graph8192.txt", "graph100.txt"};
 
 static void BM_Dijkstra_AdjMatrix(benchmark::State& state, const std::string& graphFileName, int from, int to) {
-    AdjencyMatrix matrix(getProjectDir() + "\\" + graphFileName);
-    DijkstraPathManager manager(std::make_shared<AdjencyMatrix>(matrix), from, to);
+    AdjencyMatrix<int> matrix(getProjectDir() + "\\" + graphFileName);
+    DijkstraPathManager<int> manager(std::make_shared<AdjencyMatrix<int>>(matrix), from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
@@ -51,8 +55,8 @@ BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, graph_50, "graph50.txt", 0, 30)->Unit(b
 
 static void BM_Dijkstra_AdjList(benchmark::State& state, const std::string& graphFileName, int from, int to) {
 
-    AdjencyList matrix(getProjectDir() + "\\" + graphFileName);
-    DijkstraPathManager manager(make_shared<AdjencyList>(matrix), from, to);
+    AdjencyList<int> matrix(getProjectDir() + "\\" + graphFileName);
+    DijkstraPathManager<int> manager(make_shared<AdjencyList<int>>(matrix), from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {

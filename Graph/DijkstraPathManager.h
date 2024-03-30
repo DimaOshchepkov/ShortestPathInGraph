@@ -8,9 +8,11 @@
 /// \brief Класс ShortestPathManager инкапсулирует контекст алгоритма Дейкстры
 ///        и позволяет последовательно вычленять кратчайшие пути в графе последовательно,
 ///        не меняя его.
+
+template<typename EdgeType>
 class DijkstraPathManager {
 private:
-    std::shared_ptr<IGraph> graph; ///< Указатель на объект графа.
+    std::shared_ptr<IGraph<EdgeType>> graph; ///< Указатель на объект графа.
     std::vector<int> d; ///< Вектор кратчайших расстояний от стартовой вершины.
     std::vector<bool> visited; ///< Вектор, отмечающий посещенные вершины.
     int startVertex; ///< Начальная вершина для поиска кратчайшего пути.
@@ -30,7 +32,7 @@ public:
     /// \param graph Указатель на объект графа.
     /// \param startVertex Начальная вершина для поиска кратчайшего пути.
     /// \param endVertex Конечная вершина для поиска кратчайшего пути.
-    DijkstraPathManager(std::shared_ptr<IGraph> graph, int startVertex, int endVertex);
+    DijkstraPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex);
 
     /// \brief Метод для получения кратчайшего пути между начальной и конечной вершинами.
     /// Сбрасывает предыдущую цепочку кратчайших путей.
