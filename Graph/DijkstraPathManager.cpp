@@ -10,7 +10,7 @@
 using namespace std;
 
 template<typename EdgeType>
-DijkstraPathManager<EdgeType>::DijkstraPathManager(shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
+BasePathManager<EdgeType>::BasePathManager(shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
     graph(graph), startVertex(startVertex), endVertex(endVertex),
     d(graph->countTop(), numeric_limits<int>::max()),
     visited(graph->countTop(), false),
@@ -18,7 +18,7 @@ DijkstraPathManager<EdgeType>::DijkstraPathManager(shared_ptr<IGraph<EdgeType>> 
 
 template<typename EdgeType>
 pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int startVertex, int endVertex) {
-    const int SIZE = graph->countTop();
+    const int SIZE = this->graph->countTop();
     /// “ип дл€ хранени€ рассто€ний и вершин
     typedef std::pair<int, int> Pair; // <рассто€ние, вершина>
 
@@ -39,8 +39,8 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
 
     /// «амен€ем инициализацию массива d на вставку пар в кучу
     pq.push(std::make_pair(0, startVertex)); // начальное рассто€ние до стартовой вершины равно 0
-    d.assign(graph->countTop(), numeric_limits<int>::max());
-    d[startVertex] = 0;
+    this->d.assign(this->graph->countTop(), numeric_limits<int>::max());
+    this->d[startVertex] = 0;
 
     /// »терации алгоритма ƒейкстры
     int dist, u;
@@ -53,18 +53,18 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
         u = top.second;
 
         /// ѕроверка, посещали ли мы эту вершину
-        if (visited[u]) continue;
-        visited[u] = true;
+        if (this->visited[u]) continue;
+        this->visited[u] = true;
 
         /// ѕеребор соседей вершины u
-        for (int i : graph->getVectorNeighbors(u)) {
+        for (int i : this->graph->getVectorNeighbors(u)) {
             int v = i;
-            int weight = graph->length_form_to(u, i);
+            int weight = this->graph->length_form_to(u, i);
 
             /// ќбновление рассто€ни€ до вершины v
-            if (dist + weight < d[v]) {
-                d[v] = dist + weight;
-                pq.push(std::make_pair(d[v], v)); // вставл€ем в кучу с новым рассто€нием
+            if (dist + weight < this->d[v]) {
+                this->d[v] = dist + weight;
+                pq.push(std::make_pair(this->d[v], v)); // вставл€ем в кучу с новым рассто€нием
             }
         }
 
@@ -76,14 +76,14 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
     vector<int> shortestPath;
     shortestPath.push_back(endVertex);
     int indexPrevVertex = 0;
-    int weight = d[endVertex];
+    int weight = this->d[endVertex];
     int currentVertex = endVertex;
 
     while (currentVertex != startVertex) {
         for (int i = 0; i < SIZE; ++i) {
-            if (graph->length_form_to(i, currentVertex) > 0) {
-                int temp = weight - graph->length_form_to(i, currentVertex);
-                if (temp == d[i]) {
+            if (this->graph->length_form_to(i, currentVertex) > 0) {
+                int temp = weight - this->graph->length_form_to(i, currentVertex);
+                if (temp == this->d[i]) {
                     weight = temp;
                     currentVertex = i;
                     shortestPath.push_back(i);
@@ -94,11 +94,15 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
 
     reverse(shortestPath.begin(), shortestPath.end());
 
-    return make_pair(d[endVertex], shortestPath);
+    return make_pair(this->d[endVertex], shortestPath);
 }
 
 template<typename EdgeType>
-pair<int, vector<int>> DijkstraPathManager<EdgeType>::getShortestPath() {
+DijkstraPathManager<EdgeType>::DijkstraPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
+        BasePathManager<EdgeType>(graph, startVertex, endVertex){}
+
+template<typename EdgeType>
+pair<int, vector<int>> BasePathManager<EdgeType>::getShortestPath() {
     visited.assign(graph->countTop(), false);
     banned.assign(graph->countTop(), false);
     length_path_of_two_vertices.second.clear();
@@ -111,7 +115,7 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::getShortestPath() {
 }
 
 template<typename EdgeType>
-pair<int, vector<int>> DijkstraPathManager<EdgeType>::getNextShortestPath() {
+pair<int, vector<int>> BasePathManager<EdgeType>::getNextShortestPath() {
     /// Ќачальные вершины должны быть в любом случае
     visited = banned;
     visited[startVertex] = false;
