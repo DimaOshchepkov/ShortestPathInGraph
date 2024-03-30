@@ -65,3 +65,24 @@ public:
     DijkstraPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex);
 };
 
+
+template<typename EdgeType>
+class BFSPathManager : public BasePathManager<EdgeType> {
+private:
+    /// \brief Приватный метод для получения кратчайшего пути между указанными вершинами.
+    ///
+    /// \param startVertex Начальная вершина пути.
+    /// \param endVertex Конечная вершина пути.
+    /// \return Пара, содержащая длину кратчайшего пути и его маршрут.
+    virtual std::pair<int, std::vector<int>> __getShortestPath(int startVertex, int endVertex) override;
+
+public:
+    /// \brief Конструктор класса ShortestPathManager.
+    ///
+    /// \param graph Указатель на объект графа.
+    /// \param startVertex Начальная вершина для поиска кратчайшего пути.
+    /// \param endVertex Конечная вершина для поиска кратчайшего пути.
+    BFSPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex);
+};
+
+

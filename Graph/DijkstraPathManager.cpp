@@ -141,3 +141,48 @@ pair<int, vector<int>> BasePathManager<EdgeType>::getNextShortestPath() {
     }
     return { length, path };
 }
+
+template<typename EdgeType>
+std::pair<int, std::vector<int>> BFSPathManager<EdgeType>::__getShortestPath(int startVertex, int endVertex)
+{
+    queue<int> q;
+    q.push(startVertex);
+    vector<int> prev(this->graph->countTop(), -1); // Вектор для хранения предыдущих вершин
+
+    bool is_find = false;
+    while (!is_find) {
+        if (q.empty()) {
+            return { -1, {} };
+        }
+        int current = q.front();
+        q.pop();
+        this->visited[current] = true;
+        if (current == endVertex) break;
+
+        for (int neighbor : this->graph->getVectorNeighbors(current)) {
+
+            if (!this->visited[neighbor]) {
+                q.push(neighbor);
+                prev[neighbor] = current; // Запоминаем предыдущую вершину
+                if (neighbor == endVertex) {
+                    is_find = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    vector<int> path;
+    int current = endVertex;
+    while (current != -1) { // Пока есть предыдущая вершина
+        path.push_back(current);
+        current = prev[current];
+    }
+    reverse(path.begin(), path.end()); // Переворачиваем путь
+
+    return { path.size() - 1, path };
+}
+
+template<typename EdgeType>
+BFSPathManager<EdgeType>::BFSPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
+    BasePathManager<EdgeType>(graph, startVertex, endVertex) {};

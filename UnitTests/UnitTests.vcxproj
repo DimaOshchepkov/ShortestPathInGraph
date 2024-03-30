@@ -103,6 +103,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BFSTest.cpp" />
     <ClCompile Include="DijkstraTest.cpp" />
     <ClCompile Include="GraphTests.cpp" />
     <ClCompile Include="pch.cpp">
