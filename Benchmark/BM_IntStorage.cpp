@@ -143,8 +143,8 @@ BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_4096_random_50persent_prob, "../Graphs
 BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
@@ -153,7 +153,7 @@ BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_50, "../Graphs/graph50.txt", 0, 30)->U
 static void BM_BFS_AdjList(benchmark::State& state, const std::string& graphFileName, int from, int to) {
 
     AdjencyList<int> matrix(getSolutionDir() + "\\" + graphFileName);
-    DijkstraPathManager<int> manager(make_shared<AdjencyList<int>>(matrix), from, to);
+    BFSPathManager<int> manager(make_shared<AdjencyList<int>>(matrix), from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
@@ -177,10 +177,79 @@ BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_4096_random_50persent_prob, "../Graphs/g
 BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
+
+
+
+static void BM_BFS_AdjMap(benchmark::State& state, const std::string& graphFileName, int from, int to) {
+    AdjencyMap<int> matrix(getSolutionDir() + "\\" + graphFileName);
+    BFSPathManager<int> manager(std::make_shared<AdjencyMap<int>>(matrix), from, to);
+    auto [length, path] = manager.getShortestPath();
+
+    for (auto _ : state) {
+        for (int i = 0; i < 4; i++) {
+            auto res = manager.getNextShortestPath();
+            benchmark::DoNotOptimize(res);
+            if (res.first == -1) {
+                std::cout << "Path is not exist!\n";
+            }
+        }
+        benchmark::DoNotOptimize(manager.getShortestPath());
+    }
+}
+
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_2048_random_25persent_prob, "../Graphs/graph2048_random_25persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_4096_random_25persent_prob, "../Graphs/graph4096_random_25persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_8192_random_25persent_prob, "../Graphs/graph8192_random_25persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_2048_random_50persent_prob, "../Graphs/graph2048_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_4096_random_50persent_prob, "../Graphs/graph4096_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
+
+
+static void BM_Dijkstra_AdjMap(benchmark::State& state, const std::string& graphFileName, int from, int to) {
+    AdjencyMap<int> matrix(getSolutionDir() + "\\" + graphFileName);
+    DijkstraPathManager<int> manager(std::make_shared<AdjencyMap<int>>(matrix), from, to);
+    auto [length, path] = manager.getShortestPath();
+
+    for (auto _ : state) {
+        for (int i = 0; i < 4; i++) {
+            auto res = manager.getNextShortestPath();
+            benchmark::DoNotOptimize(res);
+            if (res.first == -1) {
+                std::cout << "Path is not exist!\n";
+            }
+        }
+        benchmark::DoNotOptimize(manager.getShortestPath());
+    }
+}
+
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
+
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_2048_random_25persent_prob, "../Graphs/graph2048_random_25persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_4096_random_25persent_prob, "../Graphs/graph4096_random_25persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_8192_random_25persent_prob, "../Graphs/graph8192_random_25persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_2048_random_50persent_prob, "../Graphs/graph2048_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_4096_random_50persent_prob, "../Graphs/graph4096_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
+
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+
+
 
 BENCHMARK_MAIN();

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AdjencyList&lt;EdgeType&gt;">
+    <Position X="6" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAIAAABAAEAAAAAAgAAAQAAIAgAAAAAAA=</HashCode>
+      <FileName>Graph.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdjencyMap&lt;EdgeType&gt;">
+    <Position X="8.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAIAAAAAAEAAAABAQAAAQAAIAgAAAAAAA=</HashCode>
+      <FileName>Graph.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdjencyMatrix&lt;EdgeType&gt;">
+    <Position X="0.5" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAACAIAAAAAAEACAAAAAAAAQAAIAgAAAAAAA=</HashCode>
+      <FileName>Graph.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasePathManager&lt;EdgeType&gt;">
+    <Position X="14.5" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAABAAIAAAAAAAAAACACgCAAAAEAAAAIQBAAAA=</HashCode>
+      <FileName>DijkstraPathManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BFSPathManager&lt;EdgeType&gt;">
+    <Position X="11" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DijkstraPathManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DijkstraPathManager&lt;EdgeType&gt;">
+    <Position X="11" Y="5.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DijkstraPathManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IGraph&lt;EdgeType&gt;">
+    <Position X="5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAIAAAAAAEAAAAAAAAAAQAAIAAAAAAAAA=</HashCode>
+      <FileName>Graph.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdjencyList&lt;bool&gt;">
+    <Position X="3.25" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAIAAABAAEAAAAAAgAAAQAAIAgAAAAAAA=</HashCode>
+      <FileName>Graph_bool.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

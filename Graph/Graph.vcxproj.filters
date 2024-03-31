@@ -45,4 +45,8 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagramSpecialization.cd" />
+  </ItemGroup>
 </Project>
