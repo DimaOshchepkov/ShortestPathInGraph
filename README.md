@@ -149,7 +149,7 @@ BM_Dijkstra_AdjMap/grid_graph_64                             18.3 ms         8.0
 
 ## Немного о структуре проекта
 Алгоритм поиска находится в [файле](./Graph/ShortestPathManager.cpp).
-Бенчмарк находится в [файле](./Benchmark/DijkstraBM.cpp).
+Бенчмарк находится в [файле](./Benchmark/DijkstraBM.cpp) и [файле](./BenchmarkBoolStorage/BM_BoolStorage.cpp)
 
 ## Чтобы установить проект понадобится
 - Visual Studio 2022
