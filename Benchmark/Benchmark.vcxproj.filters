@@ -19,15 +19,4 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="graph2048.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="graph4096.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-    <Text Include="graph8192.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
-  </ItemGroup>
 </Project>

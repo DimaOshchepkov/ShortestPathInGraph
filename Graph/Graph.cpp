@@ -265,3 +265,134 @@ void AdjencyMatrix<EdgeType>::removeEdge(int from, int to) {
 
     matrix[from][to] = 0;
 }
+
+
+template<typename EdgeType>
+AdjencyMap<EdgeType>::AdjencyMap(int vertices) : adjacencyMap(vertices){}
+
+template<typename EdgeType>
+int AdjencyMap<EdgeType>::countTop() const
+{
+    return this->adjacencyMap.size();
+}
+
+template<typename EdgeType>
+EdgeType AdjencyMap<EdgeType>::length_form_to(int from, int to) const
+{
+    if (from < 0 || from >= adjacencyMap.size()) {
+        throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
+    }
+
+    if (to < 0 || to >= adjacencyMap.size()) {
+        throw std::runtime_error("Vertex " + std::to_string(to) + " is not exist");
+    }
+
+    auto it = this->adjacencyMap[from].find(to);
+    if (it != this->adjacencyMap[from].end()) {
+        return it->second;
+    }
+
+    return 0; // Если между вершинами нет ребра
+}
+
+template<typename EdgeType>
+void AdjencyMap<EdgeType>::changeEdge(int from, int to, EdgeType value)
+{
+    if (from < 0 || from >= adjacencyMap.size()) {
+        throw std::runtime_error("Vertex " + std::to_string(from) + " is not exist");
+    }
+
+    if (to < 0 || to >= adjacencyMap.size()) {
+        throw std::runtime_error("Vertex " + std::to_string(to) + " is not exist");
+    }
+
+    this->adjacencyMap[from].insert({ to, value });
+}
+
+template<typename EdgeType>
+std::vector<int> AdjencyMap<EdgeType>::getVectorNeighbors(int vert)
+{
+    // Создание вектора для хранения ключей
+    std::vector<int> keys;
+    keys.reserve(this->adjacencyMap.size());
+
+    // Получение всех ключей из std::map и добавление их в вектор
+    for (const auto& pair : this->adjacencyMap[vert]) {
+        keys.push_back(pair.first);
+    }
+
+    return keys;
+}
+
+template<typename EdgeType>
+AdjencyMap<EdgeType>::AdjencyMap(std::string path)
+{
+    std::ifstream file(path);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Failed to open file " + path);
+    }
+
+    int countTop, countEdges;
+    if (!(file >> countTop >> countEdges)) {
+        throw std::runtime_error("Failed to read counts from file");
+    }
+
+    this->adjacencyMap = std::vector<std::map<int, EdgeType>>(countTop);
+    for (int i = 0; i < countEdges; ++i) {
+        int from, to, length;
+        if (!(file >> from >> to >> length)) {
+            throw std::runtime_error("Failed to read edge from file");
+        }
+        if (from < 0 || from >= countTop || to < 0 || to >= countTop) {
+            throw std::runtime_error("Invalid edge indices in file");
+        }
+        this->adjacencyMap[from][to] = length;
+    }
+    file.close();
+}
+
+template<typename EdgeType>
+AdjencyMap<EdgeType>::AdjencyMap(const AdjencyMap<EdgeType>& other) : adjacencyMap(other.adjacencyMap) {}
+
+template<typename EdgeType>
+AdjencyMap<EdgeType>::AdjencyMap(AdjencyMap<EdgeType>&& other) noexcept : adjacencyMap(std::move(other.adjacencyMap)) {}
+
+template<typename EdgeType>
+AdjencyMap<EdgeType>& AdjencyMap<EdgeType>::operator=(const AdjencyMap<EdgeType>& other)
+{
+    if (this != &other) {
+        AdjencyList temp(other);
+        std::swap(adjacencyMap, temp.adjacencyMap);
+    }
+    return *this;
+}
+
+template<typename EdgeType>
+AdjencyMap<EdgeType>& AdjencyMap<EdgeType>::operator=(AdjencyMap<EdgeType>&& other) noexcept
+{
+    if (this != &other) {
+        adjacencyMap = std::move(other.adjacencyMap);
+    }
+    return *this;
+}
+
+template<typename EdgeType>
+void AdjencyMap<EdgeType>::removeEdge(int start, int end)
+{
+    if (start < 0 || start >= adjacencyMap.size()) {
+        throw std::runtime_error("Vertex " + std::to_string(start) + " is not exist");
+    }
+
+    if (end < 0 || end >= adjacencyMap.size()) {
+        throw std::runtime_error("Vertex " + std::to_string(end) + " is not exist");
+    }
+
+    auto it = this->adjacencyMap[start].find(end);
+    if (it != this->adjacencyMap[start].end()) {
+        this->adjacencyMap[start].erase(it);
+    }
+
+}
+
+
