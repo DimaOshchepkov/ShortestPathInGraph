@@ -12,31 +12,64 @@ CPU Caches:
   L1 Instruction 32 KiB (x4)
   L2 Unified 256 KiB (x4)
   L3 Unified 6144 KiB (x1)
----------------------------------------------------------------------------
-Benchmark                                 Time             CPU   Iterations
----------------------------------------------------------------------------
-BM_Dijkstra_AdjMatrix/graph_2048       23.9 ms         7.94 ms          124
-BM_Dijkstra_AdjMatrix/graph_4096       99.7 ms         36.5 ms           21
-BM_Dijkstra_AdjMatrix/graph_8192        385 ms          153 ms            5
-BM_Dijkstra_AdjMatrix/graph_100       0.055 ms        0.018 ms        29867
-BM_Dijkstra_AdjMatrix/graph_50        0.017 ms        0.008 ms        89600
-BM_Dijkstra_AdjList/graph_2048         2.32 ms        0.994 ms          896
-BM_Dijkstra_AdjList/graph_4096         20.8 ms         7.26 ms           99
-BM_Dijkstra_AdjList/graph_8192          124 ms         51.6 ms           10
-BM_Dijkstra_AdjList/graph_100         0.034 ms        0.015 ms        56000
-BM_Dijkstra_AdjList/graph_50          0.013 ms        0.006 ms       112000
-BM_BFS_AdjMatrix/graph_2048             101 ms         39.1 ms           20
-BM_BFS_AdjMatrix/graph_4096            1044 ms          445 ms            2
-BM_BFS_AdjMatrix/graph_8192            6568 ms         3109 ms            1
-BM_BFS_AdjMatrix/graph_100            0.032 ms        0.013 ms        89600
-BM_BFS_AdjMatrix/graph_50             0.010 ms        0.006 ms       148670
-BM_BFS_AdjList/graph_2048              2.34 ms        0.921 ms          560
-BM_BFS_AdjList/graph_4096              20.7 ms         7.19 ms          100
-BM_BFS_AdjList/graph_8192               124 ms         53.1 ms           10
-BM_BFS_AdjList/graph_100              0.034 ms        0.013 ms        49778
-BM_BFS_AdjList/graph_50               0.012 ms        0.005 ms       172308
+Хранение в int.
+-------------------------------------------------------------------------------------------------
+Benchmark                                                       Time             CPU   Iterations
+-------------------------------------------------------------------------------------------------
+BM_Dijkstra_AdjMatrix/graph_2048_random_25persent_prob       66.6 ms         40.3 ms           19
+BM_Dijkstra_AdjMatrix/graph_4096_random_25persent_prob        334 ms          191 ms            4
+BM_Dijkstra_AdjMatrix/graph_8192_random_25persent_prob        809 ms          531 ms            1
+BM_Dijkstra_AdjMatrix/graph_2048_random_50persent_prob        137 ms         97.2 ms            9
+BM_Dijkstra_AdjMatrix/graph_4096_random_50persent_prob        428 ms          323 ms            3
+BM_Dijkstra_AdjMatrix/graph_8192_random_50persent_prob       1953 ms         1344 ms            1
+BM_Dijkstra_AdjMatrix/grid_graph_16                         0.465 ms        0.368 ms         2036
+BM_Dijkstra_AdjMatrix/grid_graph_32                          6.20 ms         4.80 ms          179
+BM_Dijkstra_AdjMatrix/grid_graph_64                           102 ms         64.2 ms            9
+BM_Dijkstra_AdjMatrix/graph_100                             0.195 ms        0.126 ms         4978
+BM_Dijkstra_AdjMatrix/graph_50                              0.069 ms        0.046 ms        12949
+BM_Dijkstra_AdjList/graph_2048_random_25persent_prob          359 ms          219 ms            3
+BM_Dijkstra_AdjList/graph_4096_random_25persent_prob         3152 ms         2281 ms            1
+BM_Dijkstra_AdjList/graph_8192_random_25persent_prob        14307 ms        10312 ms            1
+BM_Dijkstra_AdjList/graph_2048_random_50persent_prob         1558 ms         1188 ms            1
+BM_Dijkstra_AdjList/graph_4096_random_50persent_prob         9049 ms         6359 ms            1
+BM_Dijkstra_AdjList/graph_8192_random_50persent_prob        79993 ms        57281 ms            1
+BM_Dijkstra_AdjList/grid_graph_16                           0.280 ms        0.213 ms         5146
+BM_Dijkstra_AdjList/grid_graph_32                            1.72 ms         1.30 ms         1120
+BM_Dijkstra_AdjList/grid_graph_64                            9.84 ms         6.25 ms           90
+BM_Dijkstra_AdjList/graph_100                               0.967 ms        0.719 ms         1000
+BM_Dijkstra_AdjList/graph_50                                0.143 ms        0.114 ms        11200
+BM_BFS_AdjMatrix/graph_2048_random_25persent_prob           0.339 ms        0.218 ms         3446
+BM_BFS_AdjMatrix/graph_4096_random_25persent_prob           0.970 ms        0.698 ms         1120
+BM_BFS_AdjMatrix/graph_8192_random_25persent_prob            1.14 ms        0.408 ms         2641
+BM_BFS_AdjMatrix/graph_2048_random_50persent_prob           0.550 ms        0.288 ms         2987
+BM_BFS_AdjMatrix/graph_4096_random_50persent_prob           0.792 ms        0.317 ms         1723
+BM_BFS_AdjMatrix/graph_8192_random_50persent_prob            2.31 ms         1.27 ms         1120
+BM_BFS_AdjMatrix/grid_graph_16                              36032 ms        17844 ms            1
+BM_BFS_AdjMatrix/graph_100                                  0.022 ms        0.010 ms        56000
+BM_BFS_AdjMatrix/graph_50                                   0.013 ms        0.007 ms       112000
+BM_BFS_AdjList/graph_2048_random_25persent_prob             0.215 ms        0.094 ms         7467
+BM_BFS_AdjList/graph_4096_random_25persent_prob             0.618 ms        0.363 ms         2240
+BM_BFS_AdjList/graph_8192_random_25persent_prob             0.606 ms        0.259 ms         6400
+BM_BFS_AdjList/graph_2048_random_50persent_prob             0.378 ms        0.138 ms         3733
+BM_BFS_AdjList/graph_4096_random_50persent_prob             0.492 ms        0.201 ms         5600
+BM_BFS_AdjList/graph_8192_random_50persent_prob              1.40 ms        0.753 ms          747
+BM_BFS_AdjList/grid_graph_16                                 7439 ms         4453 ms            1
+BM_BFS_AdjMap/graph_100                                     0.022 ms        0.008 ms        74667
+BM_BFS_AdjMap/graph_50                                      0.010 ms        0.006 ms       144516
+BM_Dijkstra_AdjMap/graph_100                                0.547 ms        0.246 ms         2987
+BM_Dijkstra_AdjMap/graph_50                                 0.155 ms        0.067 ms        10000
+BM_Dijkstra_AdjMap/graph_2048_random_25persent_prob         212 ms          105 ms            7
+BM_Dijkstra_AdjMap/graph_4096_random_25persent_prob         1146 ms          500 ms            1
+BM_Dijkstra_AdjMap/graph_8192_random_25persent_prob          2935 ms         1250 ms            1
+BM_Dijkstra_AdjMap/graph_2048_random_50persent_prob          575 ms          276 ms            3
+BM_Dijkstra_AdjMap/graph_4096_random_50persent_prob          1847 ms         1203 ms            1
+BM_Dijkstra_AdjMap/graph_8192_random_50persent_prob          8913 ms         4000 ms            1
+BM_Dijkstra_AdjMap/grid_graph_16                            0.333 ms        0.140 ms         4480
+BM_Dijkstra_AdjMap/grid_graph_32                            2.38 ms         1.19 ms          896
+BM_Dijkstra_AdjMap/grid_graph_64                            18.6 ms         9.77 ms      56
+
 ```
-Как видно из бенчмарка храня матрицу в виде списка смежности, мы получаем прирост в производительности 1,5 раза на больших графах. На малых графаx почти не получаем прироста. Также можно заметить, что на малых графах лучше себя показывает BFS.
+
 
 Для более оптимального хранения графа (в виду того, что граф, невзвешанный) была разработана специализация хранения графа, которая хранит в bool переменных длину (true - если есть ребро, иначе false в матрице смежности, а в списке смежности хранятся только вершины, между которыми есть связь). Были получены результаты, представленные ниже:
 ```
@@ -47,29 +80,71 @@ CPU Caches:
   L1 Instruction 32 KiB (x4)
   L2 Unified 256 KiB (x4)
   L3 Unified 6144 KiB (x1)
----------------------------------------------------------------------------
-Benchmark                                 Time             CPU   Iterations
----------------------------------------------------------------------------
-BM_Dijkstra_AdjMatrix/graph_2048       25.2 ms         6.50 ms          137
-BM_Dijkstra_AdjMatrix/graph_4096        103 ms         25.1 ms           28
-BM_Dijkstra_AdjMatrix/graph_8192        312 ms          133 ms            4
-BM_Dijkstra_AdjMatrix/graph_100       0.062 ms        0.023 ms        49778
-BM_Dijkstra_AdjMatrix/graph_50        0.018 ms        0.007 ms        89600
-BM_Dijkstra_AdjList/graph_2048         2.15 ms        0.572 ms         1338
-BM_Dijkstra_AdjList/graph_4096         18.0 ms         6.13 ms          102
-BM_Dijkstra_AdjList/graph_8192         85.3 ms         23.8 ms           21
-BM_Dijkstra_AdjList/graph_100         0.044 ms        0.014 ms       112000
-BM_Dijkstra_AdjList/graph_50          0.014 ms        0.006 ms       100000
-BM_BFS_AdjMatrix/graph_2048             113 ms         36.5 ms           21
-BM_BFS_AdjMatrix/graph_4096            1114 ms          461 ms            2
-BM_BFS_AdjMatrix/graph_8192            7144 ms         2391 ms            1
-BM_BFS_AdjMatrix/graph_100            0.034 ms        0.009 ms        89600
-BM_BFS_AdjMatrix/graph_50             0.011 ms        0.003 ms       165926
-BM_BFS_AdjList/graph_2048              2.14 ms        0.767 ms          896
-BM_BFS_AdjList/graph_4096              17.8 ms         6.00 ms          112
-BM_BFS_AdjList/graph_8192              84.8 ms         34.8 ms           22
-BM_BFS_AdjList/graph_100              0.045 ms        0.013 ms        37333
-BM_BFS_AdjList/graph_50               0.014 ms        0.004 ms       154483
+//bool_storage
+-------------------------------------------------------------------------------------------------
+Benchmark                                                       Time             CPU   Iterations
+-------------------------------------------------------------------------------------------------
+BM_Dijkstra_AdjMatrix/graph_2048_random_25persent_prob       65.6 ms         35.0 ms           21
+BM_Dijkstra_AdjMatrix/graph_4096_random_25persent_prob        330 ms          154 ms            6
+BM_Dijkstra_AdjMatrix/graph_8192_random_25persent_prob        808 ms          516 ms            1
+BM_Dijkstra_AdjMatrix/graph_2048_random_50persent_prob        136 ms         84.8 ms            7
+BM_Dijkstra_AdjMatrix/graph_4096_random_50persent_prob        480 ms          266 ms            2
+BM_Dijkstra_AdjMatrix/graph_8192_random_50persent_prob       1970 ms          641 ms            1
+BM_Dijkstra_AdjMatrix/grid_graph_16                         0.498 ms        0.207 ms         4978
+BM_Dijkstra_AdjMatrix/grid_graph_32                          5.97 ms         3.26 ms          201
+BM_Dijkstra_AdjMatrix/grid_graph_64                          85.1 ms         62.5 ms           10
+BM_Dijkstra_AdjMatrix/graph_100                             0.188 ms        0.127 ms         6400
+BM_Dijkstra_AdjMatrix/graph_50                              0.070 ms        0.043 ms        18667
+BM_Dijkstra_AdjList/graph_2048_random_25persent_prob          366 ms          214 ms            3
+BM_Dijkstra_AdjList/graph_4096_random_25persent_prob         3151 ms         1906 ms            1
+BM_Dijkstra_AdjList/graph_8192_random_25persent_prob        14445 ms         6031 ms            1
+BM_Dijkstra_AdjList/graph_2048_random_50persent_prob         1561 ms          578 ms            2
+BM_Dijkstra_AdjList/graph_4096_random_50persent_prob         9074 ms         3828 ms            1
+BM_Dijkstra_AdjList/graph_8192_random_50persent_prob        81664 ms        47141 ms            1
+BM_Dijkstra_AdjList/grid_graph_16                           0.282 ms        0.146 ms         4073
+BM_Dijkstra_AdjList/grid_graph_32                            1.75 ms         1.10 ms          498
+BM_Dijkstra_AdjList/grid_graph_64                            10.3 ms         5.00 ms          100
+BM_Dijkstra_AdjList/graph_100                               0.970 ms        0.594 ms         1000
+BM_Dijkstra_AdjList/graph_50                                0.148 ms        0.093 ms         6400
+BM_BFS_AdjMatrix/graph_2048_random_25persent_prob           0.345 ms        0.204 ms         2987
+BM_BFS_AdjMatrix/graph_4096_random_25persent_prob           0.993 ms        0.562 ms         1445
+BM_BFS_AdjMatrix/graph_8192_random_25persent_prob            1.01 ms        0.711 ms          747
+BM_BFS_AdjMatrix/graph_2048_random_50persent_prob           0.565 ms        0.351 ms         2358
+BM_BFS_AdjMatrix/graph_4096_random_50persent_prob           0.748 ms        0.462 ms         1487
+BM_BFS_AdjMatrix/graph_8192_random_50persent_prob            2.35 ms        0.947 ms         1056
+BM_BFS_AdjMatrix/grid_graph_16                              38481 ms        19281 ms            1
+BM_BFS_AdjMatrix/graph_100                                  0.018 ms        0.008 ms       112000
+BM_BFS_AdjMatrix/graph_50                                   0.011 ms        0.005 ms       213333
+BM_BFS_AdjList/graph_2048_random_25persent_prob             0.213 ms        0.117 ms         6400
+BM_BFS_AdjList/graph_4096_random_25persent_prob             0.623 ms        0.249 ms         3446
+BM_BFS_AdjList/graph_8192_random_25persent_prob             0.573 ms        0.307 ms         2800
+BM_BFS_AdjList/graph_2048_random_50persent_prob             0.369 ms        0.222 ms         6400
+BM_BFS_AdjList/graph_4096_random_50persent_prob             0.476 ms        0.269 ms         3200
+BM_BFS_AdjList/graph_8192_random_50persent_prob              1.40 ms        0.648 ms          989
+BM_BFS_AdjList/grid_graph_16                                 7300 ms         3156 ms            1
+BM_BFS_AdjList/graph_100                                    0.021 ms        0.009 ms        56000
+BM_BFS_AdjList/graph_50                                     0.013 ms        0.007 ms        89600
+BM_BFS_AdjMap/graph_2048_random_25persent_prob              0.264 ms        0.096 ms         7467
+BM_BFS_AdjMap/graph_4096_random_25persent_prob              0.758 ms        0.321 ms         2240
+BM_BFS_AdjMap/graph_8192_random_25persent_prob              0.908 ms        0.391 ms         1600
+BM_BFS_AdjMap/graph_2048_random_50persent_prob              0.472 ms        0.204 ms         3446
+BM_BFS_AdjMap/graph_4096_random_50persent_prob              0.632 ms        0.276 ms         2489
+BM_BFS_AdjMap/graph_8192_random_50persent_prob               2.27 ms         1.10 ms          896
+BM_BFS_AdjMap/grid_graph_16                                 10852 ms         5203 ms            1
+BM_BFS_AdjMap/graph_100                                     0.023 ms        0.010 ms       112000
+BM_BFS_AdjMap/graph_50                                      0.012 ms        0.005 ms       100000
+BM_Dijkstra_AdjMap/graph_100                                0.574 ms        0.210 ms         4978
+BM_Dijkstra_AdjMap/graph_50                                 0.148 ms        0.075 ms         8960
+BM_Dijkstra_AdjMap/graph_2048_random_25persent_prob           217 ms          104 ms            6
+BM_Dijkstra_AdjMap/graph_4096_random_25persent_prob          1176 ms          547 ms            1
+BM_Dijkstra_AdjMap/graph_8192_random_25persent_prob          3115 ms         1453 ms            1
+BM_Dijkstra_AdjMap/graph_2048_random_50persent_prob           583 ms          266 ms            3
+BM_Dijkstra_AdjMap/graph_4096_random_50persent_prob          1850 ms          734 ms            1
+BM_Dijkstra_AdjMap/graph_8192_random_50persent_prob          9205 ms         4156 ms            1
+BM_Dijkstra_AdjMap/grid_graph_16                            0.332 ms        0.160 ms         4978
+BM_Dijkstra_AdjMap/grid_graph_32                             2.34 ms         1.23 ms          560
+BM_Dijkstra_AdjMap/grid_graph_64                             18.3 ms         8.06 ms           64
+
 ```
 
 ## Немного о структуре проекта
