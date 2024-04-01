@@ -75,9 +75,9 @@ BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, graph_2048_random_50persent_prob, "../G
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, graph_4096_random_50persent_prob, "../Graphs/graph4096_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 238)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 990)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, grid_graph_64, "../Graphs/grid_graph64.txt", 65, 4030)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
@@ -109,9 +109,9 @@ BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, graph_2048_random_50persent_prob, "../Gra
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, graph_4096_random_50persent_prob, "../Graphs/graph4096_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 238)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 990)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, grid_graph_64, "../Graphs/grid_graph64.txt", 65, 4030)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
@@ -142,9 +142,9 @@ BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_2048_random_50persent_prob, "../Graphs
 BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_4096_random_50persent_prob, "../Graphs/graph4096_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 
-BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
-//BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
-//BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 238)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 990)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, grid_graph_64, "../Graphs/grid_graph64.txt", 65, 4030)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
@@ -176,9 +176,9 @@ BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_2048_random_50persent_prob, "../Graphs/g
 BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_4096_random_50persent_prob, "../Graphs/graph4096_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 
-BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
-//BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
-//BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 238)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 990)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjList, grid_graph_64, "../Graphs/grid_graph64.txt", 65, 4030)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
@@ -210,9 +210,9 @@ BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_2048_random_50persent_prob, "../Graphs/gr
 BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_4096_random_50persent_prob, "../Graphs/graph4096_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 
-BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
-//BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
-//BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 238)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 990)->Unit(benchmark::kMillisecond);
+//BENCHMARK_CAPTURE(BM_BFS_AdjMap, grid_graph_64, "../Graphs/grid_graph64.txt", 65, 4030)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_100, "../Graphs/graph100.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit(benchmark::kMillisecond);
@@ -246,9 +246,9 @@ BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_2048_random_50persent_prob, "../Grap
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_4096_random_50persent_prob, "../Graphs/graph4096_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, graph_8192_random_50persent_prob, "../Graphs/graph8192_random_50persent_prob.txt", 0, 89)->Unit(benchmark::kMillisecond);
 
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 254)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 1022)->Unit(benchmark::kMillisecond);
-BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_64, "../Graphs/grid_graph64.txt", 160, 4094)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_16, "../Graphs/grid_graph16.txt", 17, 238)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_32, "../Graphs/grid_graph32.txt", 33, 990)->Unit(benchmark::kMillisecond);
+BENCHMARK_CAPTURE(BM_Dijkstra_AdjMap, grid_graph_64, "../Graphs/grid_graph64.txt", 65, 4030)->Unit(benchmark::kMillisecond);
 
 
 
