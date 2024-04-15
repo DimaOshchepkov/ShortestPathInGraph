@@ -5,7 +5,7 @@
 #include "Graph.h"
 
 template<>
-class AdjencyList<bool> : public IGraph<bool> {
+class AdjencyList<bool>  final: public IGraph<bool> {
 private:
     std::vector<std::vector<int>> adjacencyList; /**< Список смежности графа. */
 

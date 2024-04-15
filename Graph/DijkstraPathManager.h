@@ -47,7 +47,7 @@ public:
 ///        и позволяет последовательно вычленять кратчайшие пути в графе последовательно,
 ///        не меняя его.
 template<typename EdgeType>
-class DijkstraPathManager : public BasePathManager<EdgeType> {
+class DijkstraPathManager  final: public BasePathManager<EdgeType> {
 private:
     /// \brief Приватный метод для получения кратчайшего пути между указанными вершинами.
     ///
@@ -67,7 +67,7 @@ public:
 
 
 template<typename EdgeType>
-class BFSPathManager : public BasePathManager<EdgeType> {
+class BFSPathManager  final: public BasePathManager<EdgeType> {
 private:
     /// \brief Приватный метод для получения кратчайшего пути между указанными вершинами.
     ///

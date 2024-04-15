@@ -50,7 +50,7 @@ public:
 /// \brief Класс AdjencyMatrix представляет реализацию интерфейса IGraph,
 ///        хранящую граф в виде матрицы смежности.
 template<typename EdgeType>
-class AdjencyMatrix : public IGraph<EdgeType>{
+class AdjencyMatrix final: public IGraph<EdgeType>{
 private:
     vector<vector<EdgeType>> matrix; /**< Матрица смежности графа. */
 
@@ -124,7 +124,7 @@ public:
 /// \brief Класс AdjencyList представляет реализацию интерфейса IGraph,
 ///        хранящую граф в виде списка смежности.
 template<typename EdgeType>
-class AdjencyList : public IGraph<EdgeType>{
+class AdjencyList final: public IGraph<EdgeType>{
 private:
     std::vector<std::vector<std::pair<int, EdgeType>>> adjacencyList; /**< Список смежности графа. */
 
@@ -197,7 +197,7 @@ public:
 /// \brief Класс AdjencyList представляет реализацию интерфейса IGraph,
 ///        хранящую граф в виде списка смежности.
 template<typename EdgeType>
-class AdjencyMap : public IGraph<EdgeType> {
+class AdjencyMap final: public IGraph<EdgeType> {
 private:
     std::vector<std::map<int, EdgeType>> adjacencyMap; /**< Список смежности графа. */
 
