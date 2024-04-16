@@ -26,7 +26,7 @@ typename AdjencyMatrixNeighborsIterator<EdgeType>::reference AdjencyMatrixNeighb
 }
 
 template<typename EdgeType>
-AdjencyMatrixNeighborsIterator<EdgeType> & AdjencyMatrixNeighborsIterator<EdgeType>::operator++()
+AdjencyMatrixNeighborsIterator<EdgeType>& AdjencyMatrixNeighborsIterator<EdgeType>::operator++()
 {
 	do {
 		p++;

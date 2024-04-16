@@ -1,20 +1,22 @@
 #pragma once
 #include "Graph.h"
+#include <type_traits>
+
+template<class ContImpl>
+class Iterator {
+    static_assert(std::is_base_of<IGraph<ContImpl>, ContImpl>::value,
+        "ContImpl not derived from Container");
+public:
+
+    virtual Iterator<ContImpl>& operator++() = 0;
+    virtual bool operator!=(const Iterator<ContImpl>& rhs) const = 0;
+};
 
 
 template<typename EdgeType>
-class AdjencyMatrixNeighborsIterator final: public std::iterator<std::input_iterator_tag, EdgeType>
-{
-    //friend class AdjencyMatrix<EdgeType>;
-private:
-    AdjencyMatrixNeighborsIterator(typename std::vector<EdgeType>::iterator p);
+class Iterator<AdjencyMatrix<EdgeType>> {
 public:
-    AdjencyMatrixNeighborsIterator(const AdjencyMatrixNeighborsIterator& it);
 
-    bool operator!=(AdjencyMatrixNeighborsIterator<EdgeType> const& other) const;
-    bool operator==(AdjencyMatrixNeighborsIterator<EdgeType> const& other) const; //need for BOOST_FOREACH
-    typename AdjencyMatrixNeighborsIterator<EdgeType>::reference operator*() const;
-    AdjencyMatrixNeighborsIterator<EdgeType>& operator++();
-private:
-    typename std::vector<EdgeType>::iterator p;
+    Iterator<AdjencyMatrix<EdgeType>>& operator++();
+    bool operator!=(const Iterator<AdjencyMatrix<EdgeType>>& rhs) const;
 };

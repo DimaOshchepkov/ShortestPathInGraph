@@ -6,7 +6,6 @@
 #include <map>
 
 #include "GraphIterators.h"
-#include "GraphIterators.cpp"
 
 using std::vector;
 using std::string;
@@ -49,11 +48,9 @@ public:
     /// \param end Конечная вершина ребра.
     virtual void removeEdge(int start, int end) = 0;
 
-    template<typename IteratorType>
-    IteratorType begin(int from);
+    virtual Iterator<EdgeType> begin(int from);
 
-    template<typename IteratorType>
-    IteratorType end(int from);
+    virtual Iterator<EdgeType> end(int from);
 };
 
 /// \brief Класс AdjencyMatrix представляет реализацию интерфейса IGraph,
@@ -128,19 +125,7 @@ public:
     /// \param end Конечная вершина ребра.
     void removeEdge(int start, int end) override;
 
-    //template<typename EdgeType>
-    typedef AdjencyMatrixNeighborsIterator<EdgeType> iterator;
-
-    //template<typename EdgeType>
-    typedef AdjencyMatrixNeighborsIterator<const EdgeType> const_iterator;
-
-    iterator begin(int from) override;
-
-    iterator end(int from) override;
-
-    const_iterator begin(int from) const override;
-
-    const_iterator end(int from) const override;
+    
 };
 
 
