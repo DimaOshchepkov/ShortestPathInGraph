@@ -36,3 +36,19 @@ TEST(FindShortestPathTestBFS, getNextShortestPathBoolStorage) {
     EXPECT_EQ(length3, 3);
     EXPECT_EQ(length4, -1);
 }
+
+TEST(FindShortestPathTestBFS, getNextShortestPathBoolStorage_711) {
+    AdjencyMatrix<bool> matrix(getProjectDir() + "\\graph711.txt");
+
+    BFSPathManager<bool> manager(make_shared<AdjencyMatrix<bool>>(matrix), 0, 6);
+
+    auto [length1, path1] = manager.getNextShortestPath();
+    auto [length2, path2] = manager.getNextShortestPath();
+    auto [length3, path3] = manager.getNextShortestPath();
+    auto [length4, path4] = manager.getNextShortestPath();
+
+    EXPECT_EQ(length1, 3);
+    EXPECT_EQ(length2, 3);
+    EXPECT_EQ(length3, -1);
+    EXPECT_EQ(length4, -1);
+}

@@ -395,24 +395,5 @@ void AdjencyMap<EdgeType>::removeEdge(int start, int end)
 
 }
 
-template<typename EdgeType>
-AdjencyMatrixNeighborsIterator<EdgeType> AdjencyMatrix<EdgeType>::begin(int from){
-    return AdjencyMatrixNeighborsIterator<EdgeType>(matrix[from].begin());
-}
-
-template<typename EdgeType>
-AdjencyMatrixNeighborsIterator<EdgeType> AdjencyMatrix<EdgeType>::end(int from){
-    return AdjencyMatrixNeighborsIterator<EdgeType>(matrix[from].end());
-}
-
-template<typename EdgeType>
-AdjencyMatrixNeighborsIterator<const EdgeType> AdjencyMatrix<EdgeType>::begin(int from) const {
-    return AdjencyMatrixNeighborsIterator<const EdgeType>(matrix[from].begin());
-}
-
-template<typename EdgeType>
-AdjencyMatrixNeighborsIterator<const EdgeType> AdjencyMatrix<EdgeType>::end(int from) const{
-    return AdjencyMatrixNeighborsIterator<const EdgeType>(matrix[from].end());
-}
 
 

@@ -5,7 +5,6 @@
 #include <vector>
 #include <map>
 
-#include "GraphIterators.h"
 
 using std::vector;
 using std::string;
@@ -48,9 +47,6 @@ public:
     /// \param end Конечная вершина ребра.
     virtual void removeEdge(int start, int end) = 0;
 
-    virtual Iterator<EdgeType> begin(int from);
-
-    virtual Iterator<EdgeType> end(int from);
 };
 
 /// \brief Класс AdjencyMatrix представляет реализацию интерфейса IGraph,
