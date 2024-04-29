@@ -51,7 +51,7 @@ string getSolutionDir() {
 
 static void BM_Dijkstra_AdjMatrix(benchmark::State& state, const std::string& graphFileName, int from, int to) {
     AdjencyMatrix<bool> matrix(getSolutionDir() + "\\" + graphFileName);
-    DijkstraPathManager<bool> manager(std::make_shared<AdjencyMatrix<bool>>(matrix), from, to);
+    DijkstraPathManager<bool, AdjencyMatrix<bool>> manager(matrix, from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
@@ -86,7 +86,7 @@ BENCHMARK_CAPTURE(BM_Dijkstra_AdjMatrix, graph_50, "../Graphs/graph50.txt", 0, 3
 static void BM_Dijkstra_AdjList(benchmark::State& state, const std::string& graphFileName, int from, int to) {
 
     AdjencyList<bool> matrix(getSolutionDir() + "\\" + graphFileName);
-    DijkstraPathManager<bool> manager(make_shared<AdjencyList<bool>>(matrix), from, to);
+    DijkstraPathManager<bool, AdjencyList<bool>> manager(matrix, from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
@@ -119,7 +119,7 @@ BENCHMARK_CAPTURE(BM_Dijkstra_AdjList, graph_50, "../Graphs/graph50.txt", 0, 30)
 
 static void BM_BFS_AdjMatrix(benchmark::State& state, const std::string& graphFileName, int from, int to) {
     AdjencyMatrix<bool> matrix(getSolutionDir() + "\\" + graphFileName);
-    BFSPathManager<bool> manager(std::make_shared<AdjencyMatrix<bool>>(matrix), from, to);
+    BFSPathManager<bool, AdjencyMatrix<bool>> manager(matrix, from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
@@ -153,7 +153,7 @@ BENCHMARK_CAPTURE(BM_BFS_AdjMatrix, graph_50, "../Graphs/graph50.txt", 0, 30)->U
 static void BM_BFS_AdjList(benchmark::State& state, const std::string& graphFileName, int from, int to) {
 
     AdjencyList<bool> matrix(getSolutionDir() + "\\" + graphFileName);
-    BFSPathManager<bool> manager(make_shared<AdjencyList<bool>>(matrix), from, to);
+    BFSPathManager<bool, AdjencyList<bool>> manager(matrix, from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
@@ -187,7 +187,7 @@ BENCHMARK_CAPTURE(BM_BFS_AdjList, graph_50, "../Graphs/graph50.txt", 0, 30)->Uni
 
 static void BM_BFS_AdjMap(benchmark::State& state, const std::string& graphFileName, int from, int to) {
     AdjencyMap<bool> matrix(getSolutionDir() + "\\" + graphFileName);
-    BFSPathManager<bool> manager(std::make_shared<AdjencyMap<bool>>(matrix), from, to);
+    BFSPathManager<bool, AdjencyMap<bool>> manager(matrix, from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {
@@ -220,7 +220,7 @@ BENCHMARK_CAPTURE(BM_BFS_AdjMap, graph_50, "../Graphs/graph50.txt", 0, 30)->Unit
 
 static void BM_Dijkstra_AdjMap(benchmark::State& state, const std::string& graphFileName, int from, int to) {
     AdjencyMap<bool> matrix(getSolutionDir() + "\\" + graphFileName);
-    DijkstraPathManager<bool> manager(std::make_shared<AdjencyMap<bool>>(matrix), from, to);
+    DijkstraPathManager<bool, AdjencyMap<bool>> manager(matrix, from, to);
     auto [length, path] = manager.getShortestPath();
 
     for (auto _ : state) {

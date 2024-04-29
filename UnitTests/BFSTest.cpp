@@ -12,7 +12,7 @@ using namespace std;
 TEST(FindShortestPathTestBFS, getShortestPathBoolStorage) {
     AdjencyMatrix<bool> matrix(getProjectDir() + "\\graph57.txt");
 
-    BFSPathManager<bool> manager(make_shared<AdjencyMatrix<bool>>(matrix), 0, 2);
+    BFSPathManager<bool, AdjencyMatrix<bool>> manager(matrix, 0, 2);
 
     auto [length1, path1] = manager.getShortestPath();
     auto [length2, path2] = manager.getShortestPath();
@@ -24,7 +24,7 @@ TEST(FindShortestPathTestBFS, getShortestPathBoolStorage) {
 TEST(FindShortestPathTestBFS, getNextShortestPathBoolStorage) {
     AdjencyMatrix<bool> matrix(getProjectDir() + "\\graph57.txt");
 
-    BFSPathManager<bool> manager(make_shared<AdjencyMatrix<bool>>(matrix), 0, 4);
+    BFSPathManager<bool, AdjencyMatrix<bool>> manager(matrix, 0, 4);
 
     auto [length1, path1] = manager.getNextShortestPath();
     auto [length2, path2] = manager.getNextShortestPath();
@@ -40,7 +40,7 @@ TEST(FindShortestPathTestBFS, getNextShortestPathBoolStorage) {
 TEST(FindShortestPathTestBFS, getNextShortestPathBoolStorage_711) {
     AdjencyMatrix<bool> matrix(getProjectDir() + "\\graph711.txt");
 
-    BFSPathManager<bool> manager(make_shared<AdjencyMatrix<bool>>(matrix), 0, 6);
+    BFSPathManager<bool, AdjencyMatrix<bool>>manager(matrix, 0, 6);
 
     auto [length1, path1] = manager.getNextShortestPath();
     auto [length2, path2] = manager.getNextShortestPath();

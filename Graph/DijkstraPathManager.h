@@ -5,10 +5,19 @@
 #include <vector>
 #include <limits>
 
-template<typename EdgeType>
+#include <type_traits>
+
+
+template<class Derived, class Base>
+concept IsDerivedFrom = std::is_base_of_v<Base, Derived>;
+
+template<typename T>
+concept NumericOrBool = std::is_arithmetic_v<T> || std::is_same_v<T, bool>;
+
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
 class BasePathManager {
 public: // TODO: Нужно переделать на геттеры и сеттеры, если по уму
-    std::shared_ptr<IGraph<EdgeType>> graph; ///< Указатель на объект графа.
+    Graph& graph; ///< Ссылка на объект графа.
     std::vector<int> d; ///< Вектор кратчайших расстояний от стартовой вершины.
     std::vector<bool> visited; ///< Вектор, отмечающий посещенные вершины.
     int startVertex; ///< Начальная вершина для поиска кратчайшего пути.
@@ -29,7 +38,7 @@ public:
     /// \param graph Указатель на объект графа.
     /// \param startVertex Начальная вершина для поиска кратчайшего пути.
     /// \param endVertex Конечная вершина для поиска кратчайшего пути.
-    BasePathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex);
+    BasePathManager(Graph& graph, int startVertex, int endVertex);
 
     /// \brief Метод для получения кратчайшего пути между начальной и конечной вершинами.
     /// Сбрасывает предыдущую цепочку кратчайших путей.
@@ -46,8 +55,8 @@ public:
 /// \brief Класс ShortestPathManager инкапсулирует контекст алгоритма Дейкстры
 ///        и позволяет последовательно вычленять кратчайшие пути в графе последовательно,
 ///        не меняя его.
-template<typename EdgeType>
-class DijkstraPathManager  final: public BasePathManager<EdgeType> {
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+class DijkstraPathManager  final: public BasePathManager<EdgeType, Graph> {
 private:
     /// \brief Приватный метод для получения кратчайшего пути между указанными вершинами.
     ///
@@ -62,12 +71,12 @@ public:
     /// \param graph Указатель на объект графа.
     /// \param startVertex Начальная вершина для поиска кратчайшего пути.
     /// \param endVertex Конечная вершина для поиска кратчайшего пути.
-    DijkstraPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex);
+    DijkstraPathManager(Graph& graph, int startVertex, int endVertex);
 };
 
 
-template<typename EdgeType>
-class BFSPathManager  final: public BasePathManager<EdgeType> {
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+class BFSPathManager  final: public BasePathManager<EdgeType, Graph> {
 private:
     /// \brief Приватный метод для получения кратчайшего пути между указанными вершинами.
     ///
@@ -82,7 +91,7 @@ public:
     /// \param graph Указатель на объект графа.
     /// \param startVertex Начальная вершина для поиска кратчайшего пути.
     /// \param endVertex Конечная вершина для поиска кратчайшего пути.
-    BFSPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex);
+    BFSPathManager(Graph& graph, int startVertex, int endVertex);
 };
 
 

@@ -9,16 +9,16 @@
 
 using namespace std;
 
-template<typename EdgeType>
-BasePathManager<EdgeType>::BasePathManager(shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+BasePathManager<EdgeType, Graph>::BasePathManager(Graph& graph, int startVertex, int endVertex) :
     graph(graph), startVertex(startVertex), endVertex(endVertex),
-    d(graph->countTop(), numeric_limits<int>::max()),
-    visited(graph->countTop(), false),
-    banned(graph->countTop(), false) {}
+    d(graph.countTop(), numeric_limits<int>::max()),
+    visited(graph.countTop(), false),
+    banned(graph.countTop(), false) {}
 
-template<typename EdgeType>
-pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int startVertex, int endVertex) {
-    const int SIZE = this->graph->countTop();
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+pair<int, vector<int>> DijkstraPathManager<EdgeType, Graph>::__getShortestPath(int startVertex, int endVertex) {
+    const int SIZE = this->graph.countTop();
     /// “ип дл€ хранени€ рассто€ний и вершин
     typedef std::pair<int, int> Pair; // <рассто€ние, вершина>
 
@@ -39,7 +39,7 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
 
     /// «амен€ем инициализацию массива d на вставку пар в кучу
     pq.push(std::make_pair(0, startVertex)); // начальное рассто€ние до стартовой вершины равно 0
-    this->d.assign(this->graph->countTop(), numeric_limits<int>::max());
+    this->d.assign(this->graph.countTop(), numeric_limits<int>::max());
     this->d[startVertex] = 0;
 
     /// »терации алгоритма ƒейкстры
@@ -57,9 +57,9 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
         this->visited[u] = true;
 
         /// ѕеребор соседей вершины u
-        for (int i : this->graph->getVectorNeighbors(u)) {
+        for (int i : this->graph.getVectorNeighbors(u)) {
             int v = i;
-            int weight = this->graph->length_form_to(u, i);
+            int weight = this->graph.length_form_to(u, i);
 
             /// ќбновление рассто€ни€ до вершины v
             if (dist + weight < this->d[v]) {
@@ -81,8 +81,8 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
 
     while (currentVertex != startVertex) {
         for (int i = 0; i < SIZE; ++i) {
-            if (this->graph->length_form_to(i, currentVertex) > 0) {
-                int temp = weight - this->graph->length_form_to(i, currentVertex);
+            if (this->graph.length_form_to(i, currentVertex) > 0) {
+                int temp = weight - this->graph.length_form_to(i, currentVertex);
                 if (temp == this->d[i]) {
                     weight = temp;
                     currentVertex = i;
@@ -97,14 +97,14 @@ pair<int, vector<int>> DijkstraPathManager<EdgeType>::__getShortestPath(int star
     return make_pair(this->d[endVertex], shortestPath);
 }
 
-template<typename EdgeType>
-DijkstraPathManager<EdgeType>::DijkstraPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
-        BasePathManager<EdgeType>(graph, startVertex, endVertex){}
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+DijkstraPathManager<EdgeType, Graph>::DijkstraPathManager(Graph& graph, int startVertex, int endVertex) :
+        BasePathManager<EdgeType, Graph>(graph, startVertex, endVertex){}
 
-template<typename EdgeType>
-pair<int, vector<int>> BasePathManager<EdgeType>::getShortestPath() {
-    visited.assign(graph->countTop(), false);
-    banned.assign(graph->countTop(), false);
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+pair<int, vector<int>> BasePathManager<EdgeType, Graph>::getShortestPath() {
+    visited.assign(graph.countTop(), false);
+    banned.assign(graph.countTop(), false);
     length_path_of_two_vertices.second.clear();
 
     auto [length, path] = __getShortestPath(startVertex, endVertex);
@@ -114,8 +114,8 @@ pair<int, vector<int>> BasePathManager<EdgeType>::getShortestPath() {
     return { length, path };
 }
 
-template<typename EdgeType>
-pair<int, vector<int>> BasePathManager<EdgeType>::getNextShortestPath() {
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+pair<int, vector<int>> BasePathManager<EdgeType, Graph>::getNextShortestPath() {
     /// Ќачальные вершины должны быть в любом случае
     visited = banned;
     visited[startVertex] = false;
@@ -123,7 +123,7 @@ pair<int, vector<int>> BasePathManager<EdgeType>::getNextShortestPath() {
 
     /// ќбработка особого случа€, когда путь состоити только из начальной и конечной вершины
     if (!length_path_of_two_vertices.second.empty()) {
-        graph->removeEdge(length_path_of_two_vertices.second[0], length_path_of_two_vertices.second[1]);
+        graph.removeEdge(length_path_of_two_vertices.second[0], length_path_of_two_vertices.second[1]);
     }
 
     auto [length, path] = __getShortestPath(startVertex, endVertex);
@@ -133,7 +133,7 @@ pair<int, vector<int>> BasePathManager<EdgeType>::getNextShortestPath() {
 
     /// ќбработка особого случа€, когда путь состоити только из начальной и конечной вершины
     if (!length_path_of_two_vertices.second.empty()) {
-        graph->changeEdge(length_path_of_two_vertices.second[0], length_path_of_two_vertices.second[1], length_path_of_two_vertices.first);
+        graph.changeEdge(length_path_of_two_vertices.second[0], length_path_of_two_vertices.second[1], length_path_of_two_vertices.first);
     }
 
     for (auto bannedVertex : path) {
@@ -142,12 +142,12 @@ pair<int, vector<int>> BasePathManager<EdgeType>::getNextShortestPath() {
     return { length, path };
 }
 
-template<typename EdgeType>
-std::pair<int, std::vector<int>> BFSPathManager<EdgeType>::__getShortestPath(int startVertex, int endVertex)
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+std::pair<int, std::vector<int>> BFSPathManager<EdgeType, Graph>::__getShortestPath(int startVertex, int endVertex)
 {
     queue<int> q;
     q.push(startVertex);
-    vector<int> prev(this->graph->countTop(), -1); // ¬ектор дл€ хранени€ предыдущих вершин
+    vector<int> prev(this->graph.countTop(), -1); // ¬ектор дл€ хранени€ предыдущих вершин
 
     bool is_find = false;
     while (!is_find) {
@@ -159,7 +159,7 @@ std::pair<int, std::vector<int>> BFSPathManager<EdgeType>::__getShortestPath(int
         this->visited[current] = true;
         if (current == endVertex) break;
 
-        for (int neighbor : this->graph->getVectorNeighbors(current)) {
+        for (int neighbor : this->graph.getVectorNeighbors(current)) {
 
             if (!this->visited[neighbor]) {
                 q.push(neighbor);
@@ -183,6 +183,6 @@ std::pair<int, std::vector<int>> BFSPathManager<EdgeType>::__getShortestPath(int
     return { path.size() - 1, path };
 }
 
-template<typename EdgeType>
-BFSPathManager<EdgeType>::BFSPathManager(std::shared_ptr<IGraph<EdgeType>> graph, int startVertex, int endVertex) :
-    BasePathManager<EdgeType>(graph, startVertex, endVertex) {};
+template<NumericOrBool EdgeType, IsDerivedFrom<IGraph<EdgeType>> Graph>
+BFSPathManager<EdgeType, Graph>::BFSPathManager(Graph& graph, int startVertex, int endVertex) :
+    BasePathManager<EdgeType, Graph>(graph, startVertex, endVertex) {};

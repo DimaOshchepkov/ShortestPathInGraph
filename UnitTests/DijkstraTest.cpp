@@ -11,7 +11,7 @@ using namespace std;
 TEST(FindShortestPathTest, getShortestPath) {
     AdjencyMatrix<int> matrix(getProjectDir() + "\\graph57.txt");
 
-    DijkstraPathManager<int> manager(make_shared<AdjencyMatrix<int>>(matrix), 0, 4);
+    DijkstraPathManager<int, AdjencyMatrix<int>> manager(matrix, 0, 4);
 
     auto [length1, path1] = manager.getShortestPath();
     auto [length2, path2] = manager.getShortestPath();
@@ -23,7 +23,7 @@ TEST(FindShortestPathTest, getShortestPath) {
 TEST(FindShortestPathTest, getShortestPathBoolStorage) {
     AdjencyMatrix<bool> matrix(getProjectDir() + "\\graph57.txt");
 
-    DijkstraPathManager<bool> manager(make_shared<AdjencyMatrix<bool>>(matrix), 0, 2);
+    DijkstraPathManager<bool, AdjencyMatrix<bool>> manager(matrix, 0, 2);
 
     auto [length1, path1] = manager.getShortestPath();
     auto [length2, path2] = manager.getShortestPath();
@@ -37,7 +37,7 @@ TEST(FindShortestPathTest, getShortestPathBoolStorage) {
 TEST(FindShortestPathTest, getNextShortestPath) {
     AdjencyMatrix<int> matrix(getProjectDir() + "\\graph57.txt");
 
-    DijkstraPathManager<int> manager(make_shared<AdjencyMatrix<int>>(matrix), 0, 4);
+    DijkstraPathManager<int, AdjencyMatrix<int>> manager(matrix, 0, 4);
 
     auto [length1, path1] = manager.getNextShortestPath();
     auto [length2, path2] = manager.getNextShortestPath();
@@ -51,7 +51,7 @@ TEST(FindShortestPathTest, getNextShortestPath) {
 TEST(FindShortestPathTest, getNextShortestPathBoolStorage) {
     AdjencyMatrix<bool> matrix(getProjectDir() + "\\graph57.txt");
 
-    DijkstraPathManager<bool> manager(make_shared<AdjencyMatrix<bool>>(matrix), 0, 4);
+    DijkstraPathManager<bool, AdjencyMatrix<bool>> manager(matrix, 0, 4);
 
     auto [length1, path1] = manager.getNextShortestPath();
     auto [length2, path2] = manager.getNextShortestPath();
@@ -67,7 +67,7 @@ TEST(FindShortestPathTest, getNextShortestPathBoolStorage) {
 TEST(FindShortestPathTest, getNextShortestPath2) {
     AdjencyMatrix<int> matrix(getProjectDir() + "\\graph57.txt");
 
-    DijkstraPathManager<int> manager(make_shared<AdjencyMatrix<int>>(matrix), 0, 4);
+    DijkstraPathManager<int, AdjencyMatrix<int>> manager(matrix, 0, 4);
 
     auto [length1, path1] = manager.getNextShortestPath();
     auto [length2, path2] = manager.getNextShortestPath();
@@ -90,7 +90,7 @@ TEST(FindShortestPathTest, getNextShortestPath2) {
 TEST(FindShortestPathTestAdjList, getShortestPathList) {
     AdjencyList<int> matrix(getProjectDir() + "\\graph57.txt");
 
-    DijkstraPathManager<int> manager(make_shared<AdjencyList<int>>(matrix), 0, 4);
+    DijkstraPathManager<int, AdjencyList<int>> manager(matrix, 0, 4);
 
     auto [length1, path1] = manager.getShortestPath();
     auto [length2, path2] = manager.getShortestPath();
@@ -104,7 +104,7 @@ TEST(FindShortestPathTestAdjList, getShortestPathList) {
 TEST(FindShortestPathTestAdjList, getNextShortestPathList) {
     AdjencyList<int> matrix(getProjectDir() + "\\graph57.txt");
 
-    DijkstraPathManager<int> manager(make_shared<AdjencyList<int>>(matrix), 0, 4);
+    DijkstraPathManager<int, AdjencyList<int>> manager(matrix, 0, 4);
 
     auto [length1, path1] = manager.getNextShortestPath();
     auto [length2, path2] = manager.getNextShortestPath();
@@ -118,7 +118,7 @@ TEST(FindShortestPathTestAdjList, getNextShortestPathList) {
 TEST(FindShortestPathTestAdjList, getNextShortestPathList2) {
     AdjencyList<int> matrix(getProjectDir() + "\\graph57.txt");
 
-    DijkstraPathManager<int> manager(make_shared<AdjencyList<int>>(matrix), 0, 4);
+    DijkstraPathManager<int, AdjencyList<int>> manager(matrix, 0, 4);
 
     auto [length1, path1] = manager.getNextShortestPath();
     auto [length2, path2] = manager.getNextShortestPath();
