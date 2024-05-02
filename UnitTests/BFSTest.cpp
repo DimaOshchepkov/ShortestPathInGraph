@@ -52,3 +52,5 @@ TEST(FindShortestPathTestBFS, getNextShortestPathBoolStorage_711) {
     EXPECT_EQ(length3, -1);
     EXPECT_EQ(length4, -1);
 }
+
+
